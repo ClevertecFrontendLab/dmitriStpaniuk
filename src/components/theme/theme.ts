@@ -3,6 +3,7 @@ import { extendTheme } from '@chakra-ui/react';
 const colors = {
     customLime: {
         50: '#FFFFD3',
+        100: '#eaffc7',
         150: '#D7FF94',
         300: '#C4FF61',
         400: '#B1FF2E',
@@ -10,12 +11,13 @@ const colors = {
         800: '#134B00',
     },
     blackAlpha: {
-        200: '#000000/8',
-        300: '#000000/16',
-        600: '#000000/48',
-        700: '#000000/64',
-        800: '#000000/80',
-        900: '#000000/92',
+        200: 'rgba(0, 0, 0, 0.08)',
+        300: 'rgba(0, 0, 0, 0.16)',
+        400: 'rgba(0, 0, 0, 0.24)',
+        600: 'rgba(0, 0, 0, 0.48)',
+        700: 'rgba(0, 0, 0, 0.64)',
+        800: 'rgba(0, 0, 0, 0.80)',
+        900: 'rgba(0, 0, 0, 0.92)',
     },
     whiteAlpha: {
         100: '#FFFFFF/6',
@@ -27,11 +29,29 @@ const colors = {
 };
 
 const breakpoints = {
-    base: '22.5em',
-    sm: '22.5em',
-    md: '48em',
-    lg: '90em',
-    xl: '120em',
+    base: '0px',
+    sm: '360px',
+    md: '768px',
+    lg: '1440px',
+    xl: '1920px',
+    '2xl': '1920px',
 };
 
-export const theme = extendTheme({ colors, breakpoints });
+export const theme = extendTheme({
+    colors,
+    breakpoints,
+    fonts: {
+        heading: 'var(--font-family)',
+        body: 'var(--font-family)',
+        secondary: 'var(--second-family)',
+    },
+    styles: {
+        global: {
+            body: {
+                margin: 0,
+                padding: 0,
+                fontFamily: 'var(--font-family)',
+            },
+        },
+    },
+});
