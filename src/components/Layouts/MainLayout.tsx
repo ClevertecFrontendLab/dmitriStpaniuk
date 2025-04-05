@@ -1,14 +1,12 @@
-import { Box, Flex, useBreakpointValue } from '@chakra-ui/react';
-import { FC, ReactNode } from 'react';
+import { Flex, useBreakpointValue } from '@chakra-ui/react';
+import { Outlet } from 'react-router';
 
+import { Asaid } from '../Widgets/Asaid/Asaid';
 import { BottomFooter } from '../Widgets/Footer/BottomFooter';
 import { Header } from '../Widgets/Header/Header';
 import { Menu } from '../Widgets/Menu/Menu';
-interface MainLayoutProps {
-    children: ReactNode;
-}
 
-export const MainLayout: FC<MainLayoutProps> = ({ children }) => {
+export const MainLayout = () => {
     const showFooter = useBreakpointValue({
         base: true,
         sm: true,
@@ -32,21 +30,10 @@ export const MainLayout: FC<MainLayoutProps> = ({ children }) => {
             <Header />
             <Flex flex='1' position='relative'>
                 {showMenu && <Menu />}
-                <Box
-                    as='main'
-                    flex='1'
-                    p={{
-                        base: '16px',
-                        md: '24px',
-                        lg: '32px',
-                    }}
-                    ml={{
-                        base: '0',
-                        lg: '256px', // ширина меню
-                    }}
-                >
-                    {children}
-                </Box>
+                <Flex as='main' flex='1' pt='30px' pl='24px'>
+                    <Outlet />
+                </Flex>
+                {showMenu && <Asaid />}
             </Flex>
             {showFooter && <BottomFooter />}
         </Flex>

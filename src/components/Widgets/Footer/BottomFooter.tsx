@@ -7,7 +7,14 @@ export const BottomFooter = () => {
     const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
     return (
-        <Flex as='footer' h='84px' bg='customLime.50' justifyContent='center' alignItems='center'>
+        <Flex
+            as='footer'
+            h='84px'
+            w='100%'
+            bg='customLime.50'
+            justifyContent='center'
+            alignItems='center'
+        >
             <Flex justifyContent='space-between' w='768px' h='100%'>
                 {footerMockData.map((item, index) => (
                     <Flex

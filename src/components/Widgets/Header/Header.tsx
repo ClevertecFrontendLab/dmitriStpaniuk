@@ -49,8 +49,6 @@ export const Header = () => {
         '2xl': false,
     });
 
-    console.log('Header height:', headerHeight);
-
     return (
         <Box
             as='header'

@@ -9,11 +9,15 @@ import {
     Image,
     Link,
 } from '@chakra-ui/react';
-import { useState } from 'react';
+import { FC, useState } from 'react';
 
 import { menuMockData } from './constants';
 
-export const AccordionMenu = () => {
+interface AccordionMenuProps {
+    onPageChange: (path: string) => void;
+}
+
+export const AccordionMenu: FC<AccordionMenuProps> = ({ onPageChange }) => {
     const [activeItemId, setActiveItemId] = useState<number | null>(1);
 
     return (
@@ -26,7 +30,7 @@ export const AccordionMenu = () => {
             color='#000'
             // borderRadius='12px'
             // shadow='0px 1px 0px 0px rgba(0, 0, 0, 0.1)'
-            maxH='660px'
+            maxH='820px'
             overflowY='auto'
             top='80px'
             sx={{
@@ -85,8 +89,13 @@ export const AccordionMenu = () => {
                                         alignItems='center'
                                         role='group'
                                         cursor='pointer'
-                                        maxW='100%'
-                                        onClick={() => setActiveItemId(subItem.id)}
+                                        textOverflow='ellipsis'
+                                        overflow='hidden'
+                                        whiteSpace='nowrap'
+                                        onClick={() => {
+                                            setActiveItemId(subItem.id);
+                                            onPageChange(subItem.href);
+                                        }}
                                         bg='transparent'
                                         _hover={{
                                             bg: 'customLime.50',
@@ -101,7 +110,7 @@ export const AccordionMenu = () => {
                                             h='24px'
                                             bg='customLime.300'
                                             position='absolute'
-                                            left='6'
+                                            left='3'
                                             display={activeItemId === subItem.id ? 'none' : 'block'}
                                         />
                                         <Box
@@ -110,20 +119,16 @@ export const AccordionMenu = () => {
                                             h='28px'
                                             bg='customLime.300'
                                             position='absolute'
-                                            left='4'
+                                            left='2'
                                             display={activeItemId === subItem.id ? 'block' : 'none'}
                                         />
                                         <Link
                                             fontWeight={activeItemId === subItem.id ? '700' : '500'}
                                             fontSize='16px'
-                                            ml='35px'
+                                            pl='35px'
                                             w='100%'
-                                            maxW='calc(100% - 1px)'
                                             textAlign='left'
                                             _hover={{ textDecoration: 'none' }}
-                                            overflow='hidden'
-                                            textOverflow='ellipsis'
-                                            whiteSpace='nowrap'
                                         >
                                             {subItem.label}
                                         </Link>
