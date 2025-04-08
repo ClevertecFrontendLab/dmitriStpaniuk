@@ -10,7 +10,6 @@ export const LeftFooter = () => (
         fontFamily='heading'
         fontSize='12px'
         p='0 24px'
-        pb='18px'
         w='100%'
     >
         <Text color='blackAlpha.400' fontWeight='500' textAlign='left' w='100%'>

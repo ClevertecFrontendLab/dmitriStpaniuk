@@ -18,7 +18,7 @@ export const Menu = () => {
             justifyContent='space-between'
             w='256px'
             // h='1040px'
-            pt='24px'
+            pt='23px'
             shadow='1px 0px 0px 0px rgba(0, 0, 0, 0.1)'
         >
             <AccordionMenu onPageChange={handlePageChange} />

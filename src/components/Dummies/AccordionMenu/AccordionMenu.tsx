@@ -30,9 +30,9 @@ export const AccordionMenu: FC<AccordionMenuProps> = ({ onPageChange }) => {
             color='#000'
             // borderRadius='12px'
             // shadow='0px 1px 0px 0px rgba(0, 0, 0, 0.1)'
-            maxH='820px'
+            maxH='644px'
             overflowY='auto'
-            top='80px'
+            // top='80px'
             sx={{
                 '&::-webkit-scrollbar': {
                     width: '8px',

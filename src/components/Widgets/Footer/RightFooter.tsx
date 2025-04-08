@@ -9,7 +9,7 @@ export const RightFooter = () => (
         gap='8px'
         h='100%'
         justifyContent='flex-end'
-        pb='70px'
+        pb='52px'
         pr='55px'
     >
         <Flex
