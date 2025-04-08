@@ -41,8 +41,18 @@ const SearchMainPage = ({ data }: { data: { title: string; description: string }
             </Heading>
             <Text>{data.description}</Text>
 
-            <Stack direction='row' gap='12px' pb='16px' w={['328px', '328px', '448px', '518px', '518px']}>
-                <Image w={['32px', '32px', '32px', '48px']} src={button} alt='button' cursor='pointer' />
+            <Stack
+                direction='row'
+                gap='12px'
+                pb='16px'
+                w={['328px', '328px', '448px', '518px', '518px']}
+            >
+                <Image
+                    w={['32px', '32px', '32px', '48px']}
+                    src={button}
+                    alt='button'
+                    cursor='pointer'
+                />
                 <InputGroup size={['sm', 'sm', 'sm', 'lg']}>
                     <Input
                         type='search'

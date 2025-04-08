@@ -31,7 +31,6 @@ const NewRecipeCard = ({ image, title, description, tags, actives }: NewRecipeCa
             border='1px solid rgba(0, 0, 0, 0.08)'
             borderRadius='8px'
             position='relative'
-
             minW={[
                 'calc(40% - 16px)',
                 'calc(50% - 16px)',
@@ -59,16 +58,15 @@ const NewRecipeCard = ({ image, title, description, tags, actives }: NewRecipeCa
             <Flex
                 flexDirection='column'
                 alignItems='flex-start'
-                p={['8px 8px 4px', '8px 8px 4px', '8px 8px 4px', '12px', '16px 24px 20px'] }
+                p={['8px 8px 4px', '8px 8px 4px', '8px 8px 4px', '12px', '16px 24px 20px']}
             >
-                <Flex flexDirection='column' alignItems='flex-start' gap='8px' >
+                <Flex flexDirection='column' alignItems='flex-start' gap='8px'>
                     <Text
                         fontFamily='heading'
                         fontSize={['16px', '16px', '16px', '18px', '20px']}
                         fontWeight='500'
                         noOfLines={[2, 2, 2, 1, 1]}
                         textAlign='left'
-                        
                     >
                         {title}
                     </Text>
@@ -85,12 +83,12 @@ const NewRecipeCard = ({ image, title, description, tags, actives }: NewRecipeCa
                 <Flex pt={['0', '0', '0', '24px', '24px']} justifyContent='space-between' w='100%'>
                     <CustomBadge
                         key={tags.id + tags.name}
-                            tag={{
-                                icon: tags.icon,
-                                name: tags.name,
-                                bg: 'customLime.150',
-                            }}
-                        />
+                        tag={{
+                            icon: tags.icon,
+                            name: tags.name,
+                            bg: 'customLime.150',
+                        }}
+                    />
                     <Flex gap='8px'>
                         {actives.map((active) => (
                             <Flex key={active.id + active.icon} alignItems='center' gap='6px'>

@@ -30,7 +30,12 @@ export const MainLayout = () => {
             <Header />
             <Flex flex='1' position='relative'>
                 {showMenu && <Menu />}
-                <Flex as='main' flex='1' pl={['0', '0', '20px', '24px']} pr={['0', '0', '20px', '0', '0']}>
+                <Flex
+                    as='main'
+                    flex='1'
+                    pl={['0', '0', '20px', '24px']}
+                    pr={['0', '0', '20px', '0', '0']}
+                >
                     <Outlet />
                 </Flex>
                 {showMenu && <Asaid />}

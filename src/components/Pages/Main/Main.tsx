@@ -23,9 +23,9 @@ const Main = () => (
     >
         <SearchMainPage data={searchMainPageMockData[0]} />
         <NewRecipe />
-        {/* <Succulent />
+        <Succulent />
         <Blog />
-        <VeganCuisine /> */}
+        <VeganCuisine />
     </Flex>
 );
 
