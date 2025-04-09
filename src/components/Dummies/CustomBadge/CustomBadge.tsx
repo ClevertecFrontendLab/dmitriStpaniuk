@@ -20,8 +20,8 @@ const CustomBadge = ({ tag }: { tag: { icon: string; name: string; bg: string } 
             borderRadius='4px'
             gap={['2px', '2px', '2px', '8px', '8px']}
             position={absoluteBadge ? 'absolute' : 'relative'}
-            top={absoluteBadge ? '8px' : 'auto'}
-            left={absoluteBadge ? '8px' : 'auto'}
+            top={absoluteBadge ? ['8px', '8px', '8px', '8px', '8px'] : 'auto'}
+            left={absoluteBadge ? ['8px', '8px', '8px', '8px', '8px'] : 'auto'}
         >
             <Image src={tag.icon} alt='tag' w='16px' h='16px' />
             <Text

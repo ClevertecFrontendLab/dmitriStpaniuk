@@ -23,13 +23,11 @@ export const newRecipeCardMockData = [
                 count: 1,
             },
         ],
-        tags: 
-            {
-                id: 1,
-                name: 'Первые блюда',
-                icon: fb,
-            },
-        
+        tags: {
+            id: 1,
+            name: 'Первые блюда',
+            icon: fb,
+        },
     },
     {
         id: 2,
@@ -49,13 +47,11 @@ export const newRecipeCardMockData = [
                 count: 1,
             },
         ],
-        tags: 
-            {
-                id: 1,
-                name: 'Веганские блюда',
-                icon: veg,
-            },
-        
+        tags: {
+            id: 1,
+            name: 'Веганские блюда',
+            icon: veg,
+        },
     },
     {
         id: 3,
@@ -70,13 +66,11 @@ export const newRecipeCardMockData = [
                 count: 1,
             },
         ],
-        tags: 
-            {
-                id: 1,
-                name: 'Десерты, выпечка',
-                icon: des,
-            },
-        
+        tags: {
+            id: 1,
+            name: 'Десерты, выпечка',
+            icon: des,
+        },
     },
     {
         id: 4,
@@ -85,13 +79,11 @@ export const newRecipeCardMockData = [
         description:
             'Сельдерей очень полезен для здоровья, пора набираться витаминов. Не  салат, а сплошное удовольствие:) Вкусный, необычный, а главное быстрый.',
         actives: [],
-        tags: 
-            {
-                id: 1,
-                name: 'Салаты',
-                icon: sal,
-            },
-        
+        tags: {
+            id: 1,
+            name: 'Салаты',
+            icon: sal,
+        },
     },
     {
         id: 5,
@@ -100,12 +92,10 @@ export const newRecipeCardMockData = [
         description:
             'Сельдерей очень полезен для здоровья, пора набираться витаминов. Не  салат, а сплошное удовольствие:) Вкусный, необычный, а главное быстрый.',
         actives: [],
-        tags: 
-            {
-                id: 1,
-                name: 'Салаты',
-                icon: sal,
-            },
-        
+        tags: {
+            id: 1,
+            name: 'Салаты',
+            icon: sal,
+        },
     },
 ];

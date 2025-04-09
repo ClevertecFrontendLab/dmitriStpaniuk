@@ -6,18 +6,18 @@ export const veganCuisineListCardMockData = [
         id: 1,
         image: sb,
         title: 'Стейк для вегетарианцев',
-        button: 'Готовить'
+        button: 'Готовить',
     },
     {
         id: 1,
         image: sb,
         title: 'Котлеты из гречки и фасоли',
-        button: 'Готовить'
+        button: 'Готовить',
     },
     {
         id: 1,
         image: fb,
         title: 'Сырный суп с лапшой и брокколи',
-        button: 'Готовить'
+        button: 'Готовить',
     },
 ];
