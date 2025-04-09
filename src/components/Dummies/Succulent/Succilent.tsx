@@ -28,7 +28,7 @@ export const Succulent = () => {
             <Button
                 position='absolute'
                 right={['90px', '80px', '280px', '2px', '2px']}
-                top={['630px', '607px', '330px', '8px', '10px']}
+                top={['630px', '607px', '332px', '8px', '10px']}
                 bg='customLime.400'
                 px={['16px', '16px', '16px', '16px', '24px']}
                 py={['10px', '10px', '10px', '8px', '24px']}

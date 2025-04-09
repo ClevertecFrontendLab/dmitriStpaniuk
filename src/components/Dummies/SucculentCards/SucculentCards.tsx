@@ -39,8 +39,8 @@ const SucculentCards = ({ image, title, description, tags, actives }: SucculentC
 
     return (
         <Flex
-            w={['calc(50% - 12px)', '100%', 'calc(50% - 8px)', 'calc(100%)', 'calc(50% - 12px)']}
-            h={['100%', '129px', '129px', '244px', '100%']}
+            w={['calc(50% - 12px)', '100%', 'calc(50% - 8px)', '100%', 'calc(50% - 12px)']}
+            h={['100%', '129px', '129px', '245px', '245px']}
             border='1px solid rgba(0, 0, 0, 0.08)'
             borderRadius='8px'
             maxH='250px'
@@ -51,7 +51,7 @@ const SucculentCards = ({ image, title, description, tags, actives }: SucculentC
                 alt={title}
                 borderTopLeftRadius='8px'
                 borderBottomLeftRadius='8px'
-                w={['53%', '48%', '44%', '53%', '53%']}
+                w={['53%', '48%', '44%', '52%', '52%']}
             />
             <Flex
                 p={['8px', '8px 8px 4px 8px', '10px 8px 2px 10px', '20px 24px', '20px 24px']}
@@ -72,7 +72,7 @@ const SucculentCards = ({ image, title, description, tags, actives }: SucculentC
                             py='2px'
                             alignItems='center'
                             display='flex'
-                            gap='px'
+                            gap={['2px', '2px', '2px', '8px', '8px']}
                             textTransform='none'
                             fontSize='14px'
                             fontWeight='400'
@@ -138,8 +138,8 @@ const SucculentCards = ({ image, title, description, tags, actives }: SucculentC
                         />
                     )}
                     <Button
-                        p={['8px', '8px', '8px', '12px', '12px']}
-                        h={['24px', '24px', '24px', '34px', '34px']}
+                        p={['8px', '8px', '10px', '12px', '12px']}
+                        h={['24px', '24px', '26px', '34px', '34px']}
                         bg='black'
                         color='white'
                         variant='outline'
