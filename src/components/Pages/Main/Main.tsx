@@ -13,7 +13,6 @@ const Main = () => (
         w='100%'
         h='calc(100vh - 80px)'
         overflowY='auto'
-        maxW='100vw'
         sx={{
             '&::-webkit-scrollbar': {
                 display: 'none',

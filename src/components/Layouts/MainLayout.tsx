@@ -32,9 +32,10 @@ export const MainLayout = () => {
                 {showMenu && <Menu />}
                 <Flex
                     as='main'
+                    maxW='100vw'
                     flex='1'
-                    pl={['0', '0', '20px', '24px']}
-                    pr={['0', '0', '20px', '0', '0']}
+                    pl={['0', '16px', '20px', '24px']}
+                    pr={['0', '16px', '20px', '0', '0']}
                 >
                     <Outlet />
                 </Flex>

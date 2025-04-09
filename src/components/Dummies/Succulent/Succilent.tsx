@@ -27,19 +27,19 @@ export const Succulent = () => {
             </Text>
             <Button
                 position='absolute'
-                right={['2px', '2px', '300px', '2px', '2px']}
-                top={['10px', '10px', '460px', '8px', '10px']}
+                right={['90px', '80px', '280px', '2px', '2px']}
+                top={['630px', '607px', '330px', '8px', '10px']}
                 bg='customLime.400'
-                px={['24px', '24px', '24px', '16px', '24px']}
+                px={['16px', '16px', '16px', '16px', '24px']}
                 py={['10px', '10px', '10px', '8px', '24px']}
                 rightIcon={<ArrowForwardIcon />}
             >
-                <Text fontSize={['14px', '14px', '14px', '16px', '18px']} fontWeight='600'>
+                <Text fontSize={['16px', '16px', '16px', '16px', '18px']} fontWeight='600'>
                     Вся подборка
                 </Text>
             </Button>
 
-            <Flex flexWrap='wrap' gap={['24px', '24px', '16px', '14px', '24px']}>
+            <Flex flexWrap='wrap' gap={['11px', '11px', '16px', '14px', '24px']}>
                 {succulentCardsMockData.map((item) => (
                     <SucculentCards
                         key={item.id + item.title}

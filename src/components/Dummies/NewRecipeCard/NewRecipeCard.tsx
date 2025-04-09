@@ -1,6 +1,4 @@
-import { Box, Flex, Image, Text, useBreakpointValue } from '@chakra-ui/react';
-
-import CustomBadge from '../CustomBadge/CustomBadge';
+import { Badge, Box, Flex, Image, Text, useBreakpointValue } from '@chakra-ui/react';
 
 interface NewRecipeCardProps {
     image: string;
@@ -26,6 +24,14 @@ const NewRecipeCard = ({ image, title, description, tags, actives }: NewRecipeCa
         xl: true,
         '2xl': true,
     });
+    const absoluteBadge = useBreakpointValue({
+        base: true,
+        sm: true,
+        md: true,
+        lg: false,
+        xl: false,
+        '2xl': false,
+    });
     return (
         <Box
             border='1px solid rgba(0, 0, 0, 0.08)'
@@ -33,7 +39,7 @@ const NewRecipeCard = ({ image, title, description, tags, actives }: NewRecipeCa
             position='relative'
             minW={[
                 'calc(40% - 16px)',
-                'calc(50% - 16px)',
+                'calc(50% - 6px)',
                 'calc(24% - 17px)',
                 'calc(33% - 11px)',
                 'calc(25% - 16px)',
@@ -81,14 +87,30 @@ const NewRecipeCard = ({ image, title, description, tags, actives }: NewRecipeCa
                     </Text>
                 </Flex>
                 <Flex pt={['0', '0', '0', '24px', '24px']} justifyContent='space-between' w='100%'>
-                    <CustomBadge
-                        key={tags.id + tags.name}
-                        tag={{
-                            icon: tags.icon,
-                            name: tags.name,
-                            bg: 'customLime.150',
-                        }}
-                    />
+                    <Badge
+                        bg='customLime.150'
+                        textTransform='none'
+                        fontSize='14px'
+                        fontWeight='400'
+                        display='flex'
+                        alignItems='center'
+                        px={['0', '4px', '1px', '8px', '8px']}
+                        py={['0', '1px', '0', '2px', '2px']}
+                        borderRadius='4px'
+                        gap={['2px', '2px', '2px', '8px', '8px']}
+                        position={absoluteBadge ? 'absolute' : 'relative'}
+                        top={absoluteBadge ? ['8px', '8px', '8px', '8px', '8px'] : 'auto'}
+                        left={absoluteBadge ? ['8px', '8px', '8px', '8px', '8px'] : 'auto'}
+                    >
+                        <Image src={tags.icon} alt='tag' w='16px' h='16px' />
+                        <Text
+                            fontFamily='heading'
+                            fontSize={['12px', '14px', '14px', '14px', '14px']}
+                            fontWeight='400'
+                        >
+                            {tags.name}
+                        </Text>
+                    </Badge>
                     <Flex gap='8px'>
                         {actives.map((active) => (
                             <Flex key={active.id + active.icon} alignItems='center' gap='6px'>
