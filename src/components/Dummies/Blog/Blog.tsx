@@ -28,13 +28,12 @@ const Blog = () => {
             flexDirection='column'
             borderRadius='16px'
             bg='customLime.300'
-            // bg='red'
-            mb='40px'
+            mb={['40px', '33px', '30px', '40px', '40px']}
             mt={['40px', '82px', '83px', '40px', '40px']}
             gap={['9px', '9px', '9px', '14px', '26px']}
             px={['12px', '12px', '12px', '24px', '24px']}
             pt={['12px', '12px', '12px', '21px', '15px']}
-            pb={['15px', '62px', '64px', '26px', '15px']}
+            pb={['15px', '62px', '64px', '26px', '25px']}
         >
             <Flex justifyContent='space-between' alignItems='center'>
                 <Text
