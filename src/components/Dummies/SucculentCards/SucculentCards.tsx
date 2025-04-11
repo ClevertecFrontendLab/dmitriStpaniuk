@@ -25,9 +25,17 @@ interface SucculentCardsProps {
         icon: string;
         count: number;
     }[];
+    width?: string[];
 }
 
-const SucculentCards = ({ image, title, description, tags, actives }: SucculentCardsProps) => {
+const SucculentCards = ({
+    image,
+    title,
+    description,
+    tags,
+    actives,
+    width,
+}: SucculentCardsProps) => {
     const is768 = useBreakpointValue({
         base: true,
         sm: true,
@@ -39,7 +47,7 @@ const SucculentCards = ({ image, title, description, tags, actives }: SucculentC
 
     return (
         <Flex
-            w={['calc(50% - 12px)', '100%', 'calc(50% - 8px)', '100%', 'calc(50% - 12px)']}
+            w={width}
             h={['100%', '129px', '129px', '245px', '245px']}
             border='1px solid rgba(0, 0, 0, 0.08)'
             borderRadius='8px'

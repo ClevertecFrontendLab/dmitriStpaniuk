@@ -10,7 +10,7 @@ interface VeganCuisineCardProps {
 const VeganCuisineCard = ({ title, description, tags, actives }: VeganCuisineCardProps) => (
     <Flex
         gap={['12px', '14px', '14px', '14px', '12px']}
-        w={['100%', '100%', '47%', '48%', 'calc(20% - 14px)']}
+        w={['100%', '100%', '88%', '48%', 'calc(45% - 6px)']}
         flexDirection='column'
         border='1px solid rgba(0, 0, 0, 0.08)'
         borderRadius='8px'

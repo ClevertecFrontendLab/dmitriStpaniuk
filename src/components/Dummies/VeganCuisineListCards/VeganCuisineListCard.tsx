@@ -30,12 +30,12 @@ const VeganCuisineListCards = ({ title, image, button }: VeganCuisineListCardsPr
         <Button
             color='customLime.600'
             border='1px solid #2db100'
-            borderRadius='6px'
+            // borderRadius='6px'
             variant='outline'
             size={['xs', 'xs', 'xs', 'xs', 'sm']}
-            p={['12px', '14px', '12px', '15px', '']}
-            minW={['70px', '70px', '70px', '70px', '87px']}
-            maxW={['70px', '70px', '70px', '70px', '87px']}
+            p={['12px', '14px', '12px', '15px', '15px']}
+            minW={['70px', '70px', '70px', '87px', '87px']}
+            maxW={['70px', '70px', '70px', '87px', '87px']}
         >
             {button}
         </Button>

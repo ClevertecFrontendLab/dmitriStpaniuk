@@ -51,7 +51,7 @@ export const AccordionMenu: FC<AccordionMenuProps> = ({ onPageChange }) => {
         >
             <Accordion defaultIndex={[0]} border='none' allowToggle>
                 {menuMockData.map((item) => (
-                    <AccordionItem key={item.id} border='none'>
+                    <AccordionItem key={item.id + item.label} border='none'>
                         <h2>
                             <AccordionButton
                                 onClick={() => setActiveItemId(0)}
@@ -83,7 +83,7 @@ export const AccordionMenu: FC<AccordionMenuProps> = ({ onPageChange }) => {
                             <Flex flexDirection='column' alignItems='flex-start' gap='12px'>
                                 {item.submenu.map((subItem) => (
                                     <Flex
-                                        key={subItem.id}
+                                        key={subItem.id + subItem.label}
                                         position='relative'
                                         w='100%'
                                         alignItems='center'

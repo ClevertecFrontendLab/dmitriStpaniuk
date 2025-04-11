@@ -1,10 +1,39 @@
 import { Flex, Text, useBreakpointValue } from '@chakra-ui/react';
 
-import { veganCuisineMockData } from '../VeganCuisineCard/constants';
 import VeganCuisineCard from '../VeganCuisineCard/VeganCuisineCard';
-import { veganCuisineListCardMockData } from '../VeganCuisineListCards/constants';
 import VeganCuisineListCards from '../VeganCuisineListCards/VeganCuisineListCard';
-const VeganCuisine = () => {
+
+type RelevantKitchenMockData = {
+    id: number;
+    title: string;
+    description: string;
+    tags: { id: number; icon: string; name: string }[];
+    actives: { id: number; icon: string; count: number }[];
+};
+
+type RelevantKitchenTitleDescriptionMockData = {
+    title: string;
+    description: string;
+};
+
+type VeganCuisineListCardMockData = {
+    id: number;
+    image: string;
+    title: string;
+    button: string;
+};
+
+type RelevantKitchenProps = {
+    relevantKitchenMockData: RelevantKitchenMockData[];
+    relevantKitchenTitleDescriptionMockData: RelevantKitchenTitleDescriptionMockData;
+    veganCuisineListCardMockData: VeganCuisineListCardMockData[];
+};
+
+const RelevantKitchen = ({
+    relevantKitchenMockData,
+    relevantKitchenTitleDescriptionMockData,
+    veganCuisineListCardMockData,
+}: RelevantKitchenProps) => {
     const is1440 = useBreakpointValue({
         base: false,
         sm: false,
@@ -13,13 +42,19 @@ const VeganCuisine = () => {
         xl: false,
         '2xl': false,
     });
+
+    // Разделяем заголовок на два слова
+    const titleWords = relevantKitchenTitleDescriptionMockData.title.split(' ');
+    const firstWord = titleWords[0] || '';
+    const secondWord = titleWords[1] || '';
+
     return (
         <Flex flexDirection={['column']} borderTop='1px solid rgba(0, 0, 0, 0.08)'>
             <Flex
                 flexDirection={['column', 'column', 'column', 'row', 'row']}
                 alignItems={['flex-start', 'flex-start', 'flex-start', 'flex-start', 'center']}
-                pb={['12px', '15px', '16px', '24px', '12px']}
-                pt={['10px', '10px', '10px', '22px', '10px']}
+                pb={['12px', '15px', '16px', '24px', '22px']}
+                pt={['10px', '10px', '10px', '22px', '18px']}
                 justifyContent='space-between'
             >
                 <Text
@@ -30,7 +65,9 @@ const VeganCuisine = () => {
                     lineHeight='111%'
                     pb={['10px', '10px', '12px', '0', '0']}
                 >
-                    Веганская {is1440 ? <br /> : ''} кухня
+                    {firstWord}
+                    {is1440 ? <br /> : ' '}
+                    {secondWord}
                 </Text>
                 <Text
                     fontSize={['14px', '14px', '14px', '16px', '16px']}
@@ -39,8 +76,7 @@ const VeganCuisine = () => {
                     w={['100%', '100%', '100%', '65%', '49%']}
                     textAlign='left'
                 >
-                    Интересны не только убеждённым вегетарианцам, но и тем, кто хочет попробовать
-                    вегетарианскую диету и готовить вкусные вегетарианские блюда.
+                    {relevantKitchenTitleDescriptionMockData.description}
                 </Text>
             </Flex>
             <Flex
@@ -48,9 +84,9 @@ const VeganCuisine = () => {
                 alignItems='center'
                 flexDirection={['column', 'column', 'row', 'row', 'row']}
             >
-                {veganCuisineMockData.map((card) => (
+                {relevantKitchenMockData.map((card) => (
                     <VeganCuisineCard
-                        key={card.id}
+                        key={card.title + card.description}
                         title={card.title}
                         description={card.description}
                         tags={card.tags}
@@ -60,7 +96,7 @@ const VeganCuisine = () => {
                 <Flex flexDirection='column' gap={['12px', '10px', '8px', '12px', '12px']} w='100%'>
                     {veganCuisineListCardMockData.map((item) => (
                         <VeganCuisineListCards
-                            key={item.id + 'list'}
+                            key={item.title + item.image}
                             title={item.title}
                             image={item.image}
                             button={item.button}
@@ -72,4 +108,4 @@ const VeganCuisine = () => {
     );
 };
 
-export default VeganCuisine;
+export default RelevantKitchen;

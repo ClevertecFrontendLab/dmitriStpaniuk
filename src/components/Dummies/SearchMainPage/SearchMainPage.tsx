@@ -29,7 +29,7 @@ const SearchMainPage = ({ data }: { data: { title: string; description: string }
         <Flex flexDirection='column' justifyContent='center' alignItems='center'>
             <Heading
                 as='h1'
-                pb={['18px', '18px', '18px', '34px']}
+                pb={['18px', '18px', '18px', '23px', '34px']}
                 pt={['16px', '22px', '22px', '30px', '31px']}
                 fontSize={['24px', '24px', '24px', '48px']}
                 fontWeight='700'
@@ -39,7 +39,19 @@ const SearchMainPage = ({ data }: { data: { title: string; description: string }
             >
                 {data.title}
             </Heading>
-            <Text>{data.description}</Text>
+            {data.description.length > 1 && (
+                <Text
+                    mt='-22px'
+                    mb={8}
+                    maxW='695px'
+                    lineHeight='150%'
+                    fontWeight='500'
+                    fontSize='16px'
+                    color='blackAlpha.600'
+                >
+                    {data.description}
+                </Text>
+            )}
 
             <Stack
                 direction='row'

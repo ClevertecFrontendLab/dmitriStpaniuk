@@ -18,7 +18,7 @@ export const BottomFooter = () => {
             <Flex justifyContent='space-between' w='768px' h='100%'>
                 {footerMockData.map((item, index) => (
                     <Flex
-                        key={item.id}
+                        key={item.id + item.title}
                         flexDirection='column'
                         alignItems='center'
                         w='25%'

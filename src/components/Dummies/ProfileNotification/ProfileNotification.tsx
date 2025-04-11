@@ -35,7 +35,7 @@ export const ProfileNotification = () => {
         >
             {mockNotificationData.map((item) => (
                 <Flex
-                    key={item.id}
+                    key={item.id + item.icon}
                     alignItems='center'
                     gap={['6px', '6px', '6px', '8px', '8px', '8px']}
                 >
