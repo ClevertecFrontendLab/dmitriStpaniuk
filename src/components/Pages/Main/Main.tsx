@@ -21,8 +21,8 @@ const Main = () => (
             'calc(100vh )',
             'calc(100vh)',
         ]}
-        overflowY='auto'
         pb={['16px', '16px', '16px', '0px', '0px']}
+        overflowY='auto'
         sx={{
             '&::-webkit-scrollbar': {
                 display: 'none',

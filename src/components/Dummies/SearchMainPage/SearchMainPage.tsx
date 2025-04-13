@@ -42,12 +42,13 @@ const SearchMainPage = ({ data }: { data: { title: string; description: string }
             {data.description.length > 1 && (
                 <Text
                     mt='-22px'
-                    mb={8}
+                    mb={['16px', '16px', '16px', '32px', '32px']}
                     maxW='695px'
                     lineHeight='150%'
                     fontWeight='500'
-                    fontSize='16px'
+                    fontSize={['14px', '14px', '14px', '16px', '16px']}
                     color='blackAlpha.600'
+                    pt={['16px', '16px', '16px', '0px', '0px']}
                 >
                     {data.description}
                 </Text>

@@ -3,7 +3,7 @@ import { Box, Flex, Image, useBreakpointValue } from '@chakra-ui/react';
 
 import logo from '~/assets/images/logo.png';
 import logoMobile from '~/assets/images/logoSm.png';
-import { Breadcrumbs } from '~/components/Dummies/Breadcrumb/Breadcrumbs';
+import { Breadcrumbs } from '~/components/Dummies/Breadcrumbs/Breadcrumbs';
 import { ProfileNotification } from '~/components/Dummies/ProfileNotification/ProfileNotification';
 
 import { CardAvatar } from '../../Dummies/CardAvatar/CardAvatar';
@@ -56,7 +56,7 @@ export const Header = () => {
             bg='customLime.50'
             h={headerHeight}
             w='100%'
-            // position='sticky'
+            position='static'
             // top={0}
             // zIndex='sticky'
             pr={padRight}
@@ -64,7 +64,7 @@ export const Header = () => {
             <Flex h='100%' alignItems='center' justifyContent='space-between' pl={padLeft}>
                 <Flex alignItems='center' gap='128px'>
                     <Image src={logoYeedaa} alt='logo' />
-                    {showMobileMenu ? <></> : <Breadcrumbs />}
+                    {!showMobileMenu && <Breadcrumbs />}
                 </Flex>
                 {showMobileMenu ? (
                     <Flex>

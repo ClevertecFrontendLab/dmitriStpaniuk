@@ -3,6 +3,7 @@ import { createBrowserRouter } from 'react-router';
 import { menuMockData } from '~/components/Dummies/AccordionMenu/constants';
 import { MainLayout } from '~/components/Layouts/MainLayout';
 import Main from '~/components/Pages/Main/Main';
+import Succulent from '~/components/Pages/Succulent/Succulent';
 import Vegan from '~/components/Pages/Vegan/Vegan';
 
 const routes = [
@@ -17,6 +18,7 @@ const routes = [
                     Component: Vegan,
                 })),
             ),
+            { path: '/succulent', Component: Succulent },
         ],
     },
 ];
