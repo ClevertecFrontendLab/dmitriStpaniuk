@@ -18,7 +18,14 @@ interface AccordionMenuProps {
 }
 
 export const AccordionMenu: FC<AccordionMenuProps> = ({ onPageChange }) => {
-    const [activeItemId, setActiveItemId] = useState<number | null>(1);
+    const [activeItemId, setActiveItemId] = useState<number | null>(null);
+    const handleSubItemClick = (parentHref: string, subItemHref: string) => {
+        const parentName = parentHref.replace(/^\//, '');
+        const subItemName = subItemHref.replace(/^\//, '');
+
+        const path = `/${parentName}/${subItemName}`;
+        onPageChange(path);
+    };
 
     return (
         <Flex
@@ -54,7 +61,10 @@ export const AccordionMenu: FC<AccordionMenuProps> = ({ onPageChange }) => {
                     <AccordionItem key={item.id + item.label} border='none'>
                         <h2>
                             <AccordionButton
-                                onClick={() => setActiveItemId(0)}
+                                onClick={() => {
+                                    setActiveItemId(0);
+                                    handleSubItemClick(item.href, '');
+                                }}
                                 p='12px 8px'
                                 border='none'
                                 _hover={{ bg: 'customLime.50' }}
@@ -94,7 +104,8 @@ export const AccordionMenu: FC<AccordionMenuProps> = ({ onPageChange }) => {
                                         whiteSpace='nowrap'
                                         onClick={() => {
                                             setActiveItemId(subItem.id);
-                                            onPageChange(subItem.href);
+                                            // onPageChange(subItem.href);
+                                            handleSubItemClick(item.href, subItem.href);
                                         }}
                                         bg='transparent'
                                         _hover={{

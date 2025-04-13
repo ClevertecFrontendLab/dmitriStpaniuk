@@ -33,6 +33,7 @@ export const MainLayout = () => {
                 <Flex
                     as='main'
                     maxW='100vw'
+                    // minW='100vw'
                     flex='1'
                     pl={['0', '16px', '20px', '24px']}
                     pr={['0', '16px', '20px', '0', '0']}

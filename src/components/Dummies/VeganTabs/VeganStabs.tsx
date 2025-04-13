@@ -31,7 +31,8 @@ const VeganTabs = () => (
         <Flex
             overflowX='auto'
             w='100%'
-            justifyContent='center'
+            justifyContent='flex-start'
+            position='relative'
             sx={{
                 '&::-webkit-scrollbar': {
                     display: 'none',
@@ -92,7 +93,7 @@ const VeganTabs = () => (
                         <Button
                             bg='customLime.400'
                             mt={['4px', '4px', '4px', '4px', '4px']}
-                            ml={['16px', '16px', '16px', '16px', '605px']}
+                            ml={['90px', '90px', '290px', '365px', '605px']}
                             px={['16px', '16px', '16px', '16px', '17px']}
                             py={['10px', '10px', '10px', '8px', '20px']}
                         >

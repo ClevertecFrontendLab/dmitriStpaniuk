@@ -7,8 +7,9 @@ import VeganTabs from '~/components/Dummies/VeganTabs/VeganStabs';
 const Vegan = () => (
     <Flex
         flexDirection='column'
-        h='calc(100vh - 80px)'
+        h={['calc(100vh - 160px)', 'calc(100vh - 160px)', 'calc(100vh - 160px)', '100vh', '100vh']}
         w='100%'
+        // w='100vw'
         overflowY='auto'
         sx={{
             '&::-webkit-scrollbar': {

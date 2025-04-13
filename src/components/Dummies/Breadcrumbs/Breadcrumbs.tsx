@@ -20,35 +20,44 @@ export const Breadcrumbs = () => {
             return items;
         }
 
-        let currentPath = '';
-        pathSegments.forEach((segment) => {
-            currentPath += `/${segment}`;
-
-            const menuItem = menuMockData.find((item) => item.href === currentPath);
-            if (menuItem) {
-                items.push({
-                    label: menuItem.label,
-                    path: menuItem.href,
-                });
-                return;
-            }
-
-            menuMockData.forEach((menu) => {
-                const subItem = menu.submenu.find((item) => item.href === currentPath);
-                if (subItem) {
-                    items.push(
-                        {
-                            label: menu.label,
-                            path: menu.href,
-                        },
-                        {
-                            label: subItem.label,
-                            path: subItem.href,
-                        },
-                    );
-                }
+        if (pathSegments[0] === 'succulent') {
+            items.push({
+                label: 'Самое сочное',
+                path: '/succulent',
             });
-        });
+            return items;
+        }
+
+        if (pathSegments.length >= 2) {
+            const mainCategory = menuMockData.find((item) => item.href === `/${pathSegments[0]}`);
+
+            if (mainCategory) {
+                items.push({
+                    label: mainCategory.label,
+                    path: mainCategory.href,
+                });
+
+                const subCategory = mainCategory.submenu.find(
+                    (item) => item.href === `/${pathSegments[1]}`,
+                );
+
+                if (subCategory) {
+                    items.push({
+                        label: subCategory.label,
+                        path: `/${pathSegments[0]}/${pathSegments[1]}`,
+                    });
+                }
+            }
+        } else if (pathSegments.length === 1) {
+            const mainCategory = menuMockData.find((item) => item.href === `/${pathSegments[0]}`);
+
+            if (mainCategory) {
+                items.push({
+                    label: mainCategory.label,
+                    path: mainCategory.href,
+                });
+            }
+        }
 
         return items;
     };

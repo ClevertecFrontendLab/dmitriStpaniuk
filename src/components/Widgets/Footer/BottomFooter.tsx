@@ -9,11 +9,17 @@ export const BottomFooter = () => {
     return (
         <Flex
             as='footer'
+            position='fixed'
+            bottom='0'
+            left='0'
+            right='0'
             h='84px'
             w='100%'
             bg='customLime.50'
             justifyContent='center'
             alignItems='center'
+            data-test-id='footer'
+            zIndex={1000}
         >
             <Flex justifyContent='space-between' w='768px' h='100%'>
                 {footerMockData.map((item, index) => (

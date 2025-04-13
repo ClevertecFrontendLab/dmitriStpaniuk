@@ -56,9 +56,9 @@ export const Header = () => {
             bg='customLime.50'
             h={headerHeight}
             w='100%'
-            position='static'
-            // top={0}
-            // zIndex='sticky'
+            position='sticky'
+            top={0}
+            zIndex='sticky'
             pr={padRight}
         >
             <Flex h='100%' alignItems='center' justifyContent='space-between' pl={padLeft}>
