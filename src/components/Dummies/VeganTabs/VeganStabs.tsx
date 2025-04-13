@@ -31,7 +31,6 @@ const VeganTabs = () => (
         <Flex
             overflowX='auto'
             w='100%'
-            justifyContent='flex-start'
             position='relative'
             sx={{
                 '&::-webkit-scrollbar': {
@@ -41,7 +40,7 @@ const VeganTabs = () => (
                 scrollbarWidth: 'none',
             }}
         >
-            <TabList>
+            <TabList margin='0 auto' minW='max-content'>
                 {veganTabsMockData.map((tab) => (
                     <Tab
                         key={tab.id}
