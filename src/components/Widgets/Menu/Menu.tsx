@@ -17,7 +17,7 @@ export const Menu = () => {
             flexDirection='column'
             justifyContent='space-between'
             w='256px'
-            // h='1040px'
+            h='calc(100vh - 80px)'
             pt='23px'
             shadow='1px 0px 0px 0px rgba(0, 0, 0, 0.1)'
         >

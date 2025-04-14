@@ -12,24 +12,17 @@ import { relevantKitchenMockData, relevantKitchenTitleDescriptionMockData } from
 
 const Main = () => (
     <Flex
+        position='relative'
         flexDirection='column'
         w='100%'
         h={[
-            'calc(100vh - 164px)',
-            'calc(100vh - 148px)',
-            'calc(100vh - 148px)',
-            'calc(100vh )',
-            'calc(100vh)',
+            'calc(100vh - 150px)',
+            'calc(100vh - 150px)',
+            'calc(100vh - 150px)',
+            'calc(100vh - 81px)',
+            'calc(100vh - 80px)',
         ]}
         pb={['16px', '16px', '16px', '0px', '0px']}
-        overflowY='auto'
-        sx={{
-            '&::-webkit-scrollbar': {
-                display: 'none',
-            },
-            msOverflowStyle: 'none',
-            scrollbarWidth: 'none',
-        }}
     >
         <SearchMainPage data={searchMainPageMockData[0]} />
         <NewRecipe />

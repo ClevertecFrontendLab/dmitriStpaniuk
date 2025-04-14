@@ -15,16 +15,14 @@ import {
 const Succulent = () => (
     <Flex
         flexDirection='column'
-        h='calc(100vh - 80px)'
+        h={[
+            ' calc(100vh - 150px)',
+            ' calc(100vh - 150px)',
+            ' calc(100vh - 150px)',
+            ' calc(100vh - 81px)',
+            ' calc(100vh - 80px)',
+        ]}
         w='100%'
-        overflowY='auto'
-        sx={{
-            '&::-webkit-scrollbar': {
-                display: 'none',
-            },
-            msOverflowStyle: 'none',
-            scrollbarWidth: 'none',
-        }}
     >
         <SearchMainPage data={searchMainPageMockData[2]} />
         <Flex flexDirection='column' alignItems='flex-start' position='relative' mt='24px'>
@@ -54,7 +52,7 @@ const Succulent = () => (
                 <Button
                     bg='customLime.400'
                     mt={['4px', '4px', '4px', '4px', '4px']}
-                    ml={['16px', '16px', '16px', '16px', '605px']}
+                    ml={['16px', '90px', '285px', '380px', '605px']}
                     px={['16px', '16px', '16px', '16px', '17px']}
                     py={['10px', '10px', '10px', '8px', '20px']}
                 >

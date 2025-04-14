@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { footerMockData } from './constants';
 
 export const BottomFooter = () => {
-    const [activeIndex, setActiveIndex] = useState<number | null>(null);
+    const [activeIndex, setActiveIndex] = useState<number>(0);
 
     return (
         <Flex

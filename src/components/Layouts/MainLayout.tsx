@@ -34,8 +34,23 @@ export const MainLayout = () => {
                     as='main'
                     maxW='100vw'
                     flex='1'
+                    h={[
+                        'calc(100vh - 150px)',
+                        'calc(100vh - 150px)',
+                        'calc(100vh - 150px)',
+                        'calc(100vh - 81px)',
+                        'calc(100vh - 80px)',
+                    ]}
+                    overflowY='scroll'
                     pl={['0', '16px', '20px', '24px']}
-                    pr={['0', '16px', '20px', '0', '0']}
+                    pr={['0', '16px', '20px', '10px', '10px']}
+                    sx={{
+                        '&::-webkit-scrollbar': {
+                            display: 'none',
+                        },
+                        msOverflowStyle: 'none',
+                        scrollbarWidth: 'none',
+                    }}
                 >
                     <Outlet />
                 </Flex>

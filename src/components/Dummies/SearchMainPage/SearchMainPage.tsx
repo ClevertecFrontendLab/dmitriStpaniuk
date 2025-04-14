@@ -71,6 +71,7 @@ const SearchMainPage = ({ data }: { data: { title: string; description: string }
                         type='search'
                         placeholder='Название или ингредиент...'
                         borderColor='blackAlpha.600'
+                        _placeholder={{ color: 'customLime.800' }}
                     />
                     <InputRightElement width='4.5rem' cursor='pointer'>
                         <SearchIcon />
