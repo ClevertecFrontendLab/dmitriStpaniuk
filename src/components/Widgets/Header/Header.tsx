@@ -1,5 +1,17 @@
-import { HamburgerIcon } from '@chakra-ui/icons';
-import { Box, Flex, Image, useBreakpointValue } from '@chakra-ui/react';
+import { CloseIcon, HamburgerIcon } from '@chakra-ui/icons';
+import {
+    Box,
+    Drawer,
+    DrawerBody,
+    DrawerContent,
+    DrawerHeader,
+    DrawerOverlay,
+    Flex,
+    IconButton,
+    Image,
+    useBreakpointValue,
+    useDisclosure,
+} from '@chakra-ui/react';
 
 import logo from '~/assets/images/logo.png';
 import logoMobile from '~/assets/images/logoSm.png';
@@ -9,29 +21,8 @@ import { ProfileNotification } from '~/components/Dummies/ProfileNotification/Pr
 import { CardAvatar } from '../../Dummies/CardAvatar/CardAvatar';
 
 export const Header = () => {
-    const headerHeight = useBreakpointValue({
-        base: '64px',
-        sm: '64px',
-        md: '64px',
-        lg: '80px',
-        xl: '80px',
-        '2xl': '80px',
-    });
-    const padLeft = useBreakpointValue({
-        base: '16px',
-        sm: '16px',
-        md: '20px',
-        lg: '16px',
-        xl: '16px',
-        '2xl': '16px',
-    });
-    const padRight = useBreakpointValue({
-        base: '32px',
-        sm: '32px',
-        md: '32px',
-        lg: '80px',
-        xl: '80px',
-    });
+    const { isOpen, onOpen, onClose } = useDisclosure();
+
     const logoYeedaa = useBreakpointValue({
         base: logoMobile,
         sm: logoMobile,
@@ -54,14 +45,19 @@ export const Header = () => {
             as='header'
             data-test-id='header'
             bg='customLime.50'
-            h={headerHeight}
+            h={['64px', '64px', '64px', '80px', '80px', '80px']}
             w='100%'
             position='sticky'
             top={0}
             zIndex='sticky'
-            pr={padRight}
+            pr={['32px', '32px', '32px', '80px', '80px', '80px']}
         >
-            <Flex h='100%' alignItems='center' justifyContent='space-between' pl={padLeft}>
+            <Flex
+                h='100%'
+                alignItems='center'
+                justifyContent='space-between'
+                pl={['16px', '16px', '16px', '20px', '16px', '16px']}
+            >
                 <Flex alignItems='center' gap='128px'>
                     <Image src={logoYeedaa} alt='logo' />
                     {!showMobileMenu && <Breadcrumbs />}
@@ -69,9 +65,40 @@ export const Header = () => {
                 {showMobileMenu ? (
                     <Flex>
                         <ProfileNotification />
-                        <Box ml={['32px', '32px', '45px']}>
-                            <HamburgerIcon />
-                        </Box>
+                        <IconButton
+                            ml={['32px', '32px', '45px']}
+                            aria-label='menu'
+                            icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
+                            onClick={isOpen ? onClose : onOpen}
+                        />
+                        <Drawer
+                            placement='right'
+                            onClose={onClose}
+                            isOpen={isOpen}
+                            blockScrollOnMount={false}
+                            preserveScrollBarGap={false}
+                        >
+                            <DrawerOverlay
+                                position='fixed'
+                                top='64px'
+                                backgroundColor='rgba(0, 0, 0, 0.16)'
+                                filter='blur(4px)'
+                            />
+                            <DrawerContent
+                                height='auto'
+                                maxHeight='300px'
+                                borderTopLeftRadius='8px'
+                                borderBottomLeftRadius='8px'
+                                marginTop='64px'
+                            >
+                                <DrawerHeader borderBottomWidth='1px'>Menu</DrawerHeader>
+                                <DrawerBody>
+                                    <p>Some contents...</p>
+                                    <p>Some contents...</p>
+                                    <p>Some contents...</p>
+                                </DrawerBody>
+                            </DrawerContent>
+                        </Drawer>
                     </Flex>
                 ) : (
                     <CardAvatar />
