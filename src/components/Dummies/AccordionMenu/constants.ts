@@ -20,22 +20,22 @@ export const menuMockData = [
         href: '/salaty',
         submenu: [
             {
-                id: 1,
+                id: 45366,
                 label: 'Мясные салаты',
                 href: '/myasnye-salaty',
             },
             {
-                id: 2,
+                id: 272465745768,
                 label: 'Рыбные салаты',
                 href: '/rybnye-salaty',
             },
             {
-                id: 3,
+                id: 34562432,
                 label: 'Овощные салаты',
                 href: '/ovoshnye-salaty',
             },
             {
-                id: 4,
+                id: 24557780,
                 label: 'Теплые салаты',
                 href: '/teplye-salaty',
             },

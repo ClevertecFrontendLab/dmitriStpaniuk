@@ -9,7 +9,8 @@ import {
     Image,
     Link,
 } from '@chakra-ui/react';
-import { FC, useState } from 'react';
+import { FC } from 'react';
+import { matchPath, useLocation } from 'react-router';
 
 import { menuMockData } from './constants';
 
@@ -18,7 +19,6 @@ interface AccordionMenuProps {
 }
 
 export const AccordionMenu: FC<AccordionMenuProps> = ({ onPageChange }) => {
-    const [activeItemId, setActiveItemId] = useState<number | null>(null);
     const handleSubItemClick = (parentHref: string, subItemHref: string) => {
         const parentName = parentHref.replace(/^\//, '');
         const subItemName = subItemHref.replace(/^\//, '');
@@ -26,6 +26,35 @@ export const AccordionMenu: FC<AccordionMenuProps> = ({ onPageChange }) => {
         const path = `/${parentName}/${subItemName}`;
         onPageChange(path);
     };
+    const location = useLocation();
+    const activeParent = matchPath(
+        {
+            path: '/:parent',
+            end: true,
+        },
+        location.pathname,
+    );
+    const activeSubItem = matchPath(
+        {
+            path: '/:parent/:subItem',
+            end: true,
+        },
+        location.pathname,
+    );
+
+    console.log('activeParent', activeParent);
+    console.log('activeSubItem', activeSubItem);
+
+    // Определяем индекс активного элемента меню
+    const defaultIndex = activeParent?.params?.parent
+        ? menuMockData.findIndex((item) => item.href.slice(1) === activeParent.params.parent)
+        : activeSubItem?.params?.subItem
+          ? menuMockData.findIndex((item) =>
+                item.submenu.some((sub) => sub.href.slice(1) === activeSubItem.params.subItem),
+            )
+          : 0;
+
+    console.log('defaultIndex', defaultIndex);
 
     return (
         <Flex
@@ -35,11 +64,8 @@ export const AccordionMenu: FC<AccordionMenuProps> = ({ onPageChange }) => {
             fontWeight={500}
             fontSize='16px'
             color='#000'
-            // borderRadius='12px'
-            // shadow='0px 1px 0px 0px rgba(0, 0, 0, 0.1)'
             maxH='620px'
             overflowY='auto'
-            // top='80px'
             sx={{
                 '&::-webkit-scrollbar': {
                     width: '8px',
@@ -56,13 +82,16 @@ export const AccordionMenu: FC<AccordionMenuProps> = ({ onPageChange }) => {
                 },
             }}
         >
-            <Accordion defaultIndex={[0]} border='none' allowToggle>
+            <Accordion
+                defaultIndex={[defaultIndex === -1 ? 0 : defaultIndex]}
+                border='none'
+                allowToggle
+            >
                 {menuMockData.map((item) => (
                     <AccordionItem key={item.id + item.label} border='none'>
                         <h2>
                             <AccordionButton
                                 onClick={() => {
-                                    setActiveItemId(0);
                                     handleSubItemClick(item.href, '');
                                 }}
                                 p='10px 8px'
@@ -103,8 +132,6 @@ export const AccordionMenu: FC<AccordionMenuProps> = ({ onPageChange }) => {
                                         overflow='hidden'
                                         whiteSpace='nowrap'
                                         onClick={() => {
-                                            setActiveItemId(subItem.id);
-                                            // onPageChange(subItem.href);
                                             handleSubItemClick(item.href, subItem.href);
                                         }}
                                         bg='transparent'
@@ -122,7 +149,12 @@ export const AccordionMenu: FC<AccordionMenuProps> = ({ onPageChange }) => {
                                             bg='customLime.300'
                                             position='absolute'
                                             left='3'
-                                            display={activeItemId === subItem.id ? 'none' : 'block'}
+                                            display={
+                                                subItem.href.slice(1) ===
+                                                activeSubItem?.params.subItem
+                                                    ? 'none'
+                                                    : 'block'
+                                            }
                                         />
                                         <Box
                                             className='decorator-active'
@@ -131,10 +163,20 @@ export const AccordionMenu: FC<AccordionMenuProps> = ({ onPageChange }) => {
                                             bg='customLime.300'
                                             position='absolute'
                                             left='2'
-                                            display={activeItemId === subItem.id ? 'block' : 'none'}
+                                            display={
+                                                subItem.href.slice(1) ===
+                                                activeSubItem?.params.subItem
+                                                    ? 'block'
+                                                    : 'none'
+                                            }
                                         />
                                         <Link
-                                            fontWeight={activeItemId === subItem.id ? '700' : '500'}
+                                            fontWeight={
+                                                subItem.href.slice(1) ===
+                                                activeSubItem?.params.subItem
+                                                    ? '700'
+                                                    : '500'
+                                            }
                                             fontSize='16px'
                                             pl='35px'
                                             w='100%'
