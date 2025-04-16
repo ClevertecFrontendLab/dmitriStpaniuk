@@ -19,6 +19,7 @@ import { Breadcrumbs } from '~/components/Dummies/Breadcrumbs/Breadcrumbs';
 import { ProfileNotification } from '~/components/Dummies/ProfileNotification/ProfileNotification';
 
 import { CardAvatar } from '../../Dummies/CardAvatar/CardAvatar';
+import { Menu } from '../Menu/Menu';
 
 export const Header = () => {
     const { isOpen, onOpen, onClose } = useDisclosure();
@@ -44,12 +45,12 @@ export const Header = () => {
         <Box
             as='header'
             data-test-id='header'
-            bg='customLime.50'
+            bg={isOpen ? 'white' : 'customLime.50'}
             h={['64px', '64px', '64px', '80px', '80px', '80px']}
             w='100%'
             position='sticky'
             top={0}
-            zIndex='sticky'
+            zIndex={9999}
             pr={['32px', '32px', '32px', '80px', '80px', '80px']}
         >
             <Flex
@@ -57,6 +58,8 @@ export const Header = () => {
                 alignItems='center'
                 justifyContent='space-between'
                 pl={['16px', '16px', '16px', '20px', '16px', '16px']}
+                position='relative'
+                zIndex={9999}
             >
                 <Flex alignItems='center' gap='128px'>
                     <Image src={logoYeedaa} alt='logo' />
@@ -64,7 +67,7 @@ export const Header = () => {
                 </Flex>
                 {showMobileMenu ? (
                     <Flex>
-                        <ProfileNotification />
+                        {!isOpen && <ProfileNotification />}
                         <IconButton
                             ml={['32px', '32px', '45px']}
                             aria-label='menu'
@@ -86,16 +89,16 @@ export const Header = () => {
                             />
                             <DrawerContent
                                 height='auto'
-                                maxHeight='300px'
-                                borderTopLeftRadius='8px'
-                                borderBottomLeftRadius='8px'
+                                maxHeight='100%'
+                                borderBottomRadius='8px'
+                                marginRight='8px'
                                 marginTop='64px'
                             >
-                                <DrawerHeader borderBottomWidth='1px'>Menu</DrawerHeader>
+                                <DrawerHeader borderBottomWidth='1px'>
+                                    <Breadcrumbs />
+                                </DrawerHeader>
                                 <DrawerBody>
-                                    <p>Some contents...</p>
-                                    <p>Some contents...</p>
-                                    <p>Some contents...</p>
+                                    <Menu />
                                 </DrawerBody>
                             </DrawerContent>
                         </Drawer>
