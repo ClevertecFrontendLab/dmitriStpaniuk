@@ -9,7 +9,7 @@ export const LeftFooter = () => (
         as='footer'
         fontFamily='heading'
         fontSize='12px'
-        p='0 24px'
+        p={['10px 10px 0px 10px', '10px 0px 0px 10px', '10px 10px 0px 10px', '0 24px', '0 24px']}
         w='100%'
     >
         <Text color='blackAlpha.400' fontWeight='500' textAlign='left' w='100%'>

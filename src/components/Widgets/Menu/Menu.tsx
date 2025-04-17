@@ -14,11 +14,18 @@ export const Menu = () => {
 
     return (
         <Flex
+            h='100%'
             flexDirection='column'
             justifyContent='space-between'
-            w='256px'
-            pt='23px'
-            shadow='1px 0px 0px 0px rgba(0, 0, 0, 0.1)'
+            w={['314px', '314px', '314px', '256px', '256px']}
+            pt={['0', '0', '0', '23px', '23px']}
+            shadow={[
+                'none',
+                'none',
+                'none',
+                '1px 0px 0px 0px rgba(0, 0, 0, 0.1)',
+                '1px 0px 0px 0px rgba(0, 0, 0, 0.1)',
+            ]}
         >
             <AccordionMenu onPageChange={handlePageChange} />
             <LeftFooter />

@@ -59,18 +59,17 @@ export const AccordionMenu: FC<AccordionMenuProps> = ({ onPageChange }) => {
     return (
         <Flex
             flexDirection='column'
-            p='10px 16px 10px 10px'
+            p={['0', '0', '0', '10px 16px 10px 10px', '10px 16px 10px 10px']}
             fontFamily='heading'
             fontWeight={500}
             fontSize='16px'
             color='#000'
-            maxH='620px'
+            maxH={['640px', '640px', '630px', '620px', '620px']}
             overflowY='auto'
             sx={{
+                'scrollbar-gutter': 'stable',
                 '&::-webkit-scrollbar': {
                     width: '8px',
-                    mr: '10px',
-                    mb: '10px',
                 },
                 '&::-webkit-scrollbar-track': {
                     background: 'blackAlpha.50',

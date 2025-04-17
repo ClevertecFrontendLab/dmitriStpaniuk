@@ -65,9 +65,9 @@ export const Breadcrumbs = () => {
     const breadcrumbItems = getBreadcrumbItems();
 
     return (
-        <Flex alignItems='center' gap='8px'>
+        <Flex alignItems='center' gap='8px' flexWrap='wrap' maxW='100%'>
             {breadcrumbItems.map((item, index) => (
-                <Flex key={item.path} alignItems='center'>
+                <Flex key={item.path} alignItems='center' flexShrink={0}>
                     {index > 0 && <ChevronRightIcon color='gray.500' mx='8px' />}
                     <Link to={item.path}>
                         <Text

@@ -88,11 +88,16 @@ export const Header = () => {
                                 filter='blur(4px)'
                             />
                             <DrawerContent
-                                height='auto'
-                                maxHeight='100%'
+                                minWidth='340px'
+                                // maxHeight='calc(100vh - 130px)'
                                 borderBottomRadius='8px'
                                 marginRight='8px'
                                 marginTop='64px'
+                                sx={{
+                                    '.chakra-modal__body': {
+                                        padding: '10px 16px 10px 10px',
+                                    },
+                                }}
                             >
                                 <DrawerHeader borderBottomWidth='1px'>
                                     <Breadcrumbs />
