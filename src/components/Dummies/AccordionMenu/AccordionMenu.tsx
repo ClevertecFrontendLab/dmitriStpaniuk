@@ -13,6 +13,7 @@ import { FC } from 'react';
 import { matchPath, useLocation } from 'react-router';
 
 import { menuMockData } from './constants';
+import { defaultIndex } from './useAccordionMenu';
 
 interface AccordionMenuProps {
     onPageChange: (path: string) => void;
@@ -22,6 +23,17 @@ export const AccordionMenu: FC<AccordionMenuProps> = ({ onPageChange }) => {
     const handleSubItemClick = (parentHref: string, subItemHref: string) => {
         const parentName = parentHref.replace(/^\//, '');
         const subItemName = subItemHref.replace(/^\//, '');
+
+        //  берем первый элемент
+        if (!subItemName) {
+            const parentItem = menuMockData.find((item) => item.href.slice(1) === parentName);
+            if (parentItem && parentItem.submenu.length > 0) {
+                const firstSubItem = parentItem.submenu[0];
+                const path = `/${parentName}/${firstSubItem.href.slice(1)}`;
+                onPageChange(path);
+                return;
+            }
+        }
 
         const path = `/${parentName}/${subItemName}`;
         onPageChange(path);
@@ -42,20 +54,6 @@ export const AccordionMenu: FC<AccordionMenuProps> = ({ onPageChange }) => {
         location.pathname,
     );
 
-    console.log('activeParent', activeParent);
-    console.log('activeSubItem', activeSubItem);
-
-    // Определяем индекс активного элемента меню
-    const defaultIndex = activeParent?.params?.parent
-        ? menuMockData.findIndex((item) => item.href.slice(1) === activeParent.params.parent)
-        : activeSubItem?.params?.subItem
-          ? menuMockData.findIndex((item) =>
-                item.submenu.some((sub) => sub.href.slice(1) === activeSubItem.params.subItem),
-            )
-          : 0;
-
-    console.log('defaultIndex', defaultIndex);
-
     return (
         <Flex
             flexDirection='column'
@@ -67,7 +65,7 @@ export const AccordionMenu: FC<AccordionMenuProps> = ({ onPageChange }) => {
             maxH={['640px', '640px', '630px', '620px', '620px']}
             overflowY='auto'
             sx={{
-                'scrollbar-gutter': 'stable',
+                scrollbarGutter: 'stable',
                 '&::-webkit-scrollbar': {
                     width: '8px',
                 },
@@ -82,7 +80,7 @@ export const AccordionMenu: FC<AccordionMenuProps> = ({ onPageChange }) => {
             }}
         >
             <Accordion
-                defaultIndex={[defaultIndex === -1 ? 0 : defaultIndex]}
+                defaultIndex={[defaultIndex(activeParent, activeSubItem)]}
                 border='none'
                 allowToggle
             >

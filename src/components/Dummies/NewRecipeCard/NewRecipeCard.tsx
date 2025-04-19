@@ -1,21 +1,31 @@
 import { Badge, Box, Flex, Image, Text, useBreakpointValue } from '@chakra-ui/react';
+import { useNavigate } from 'react-router';
+
+import BookmarksLikes from '../BookmarksLikes/BookmarksLikes';
+import { badgesIcons } from '../NewRecipe/constants';
 
 interface NewRecipeCardProps {
+    id: string;
     image: string;
     title: string;
     description: string;
-    tags: {
-        id: number;
-        icon: string;
-        name: string;
-    };
-    actives: {
-        id: number;
-        icon: string;
-        count: number;
-    }[];
+    category: string[];
+    subcategory: string[];
+    bookmarks: number;
+    likes: number;
 }
-const NewRecipeCard = ({ image, title, description, tags, actives }: NewRecipeCardProps) => {
+
+const NewRecipeCard = ({
+    id,
+    image,
+    title,
+    description,
+    category,
+    subcategory,
+    bookmarks,
+    likes,
+}: NewRecipeCardProps) => {
+    const navigate = useNavigate();
     const showDescription = useBreakpointValue({
         base: false,
         sm: false,
@@ -32,25 +42,22 @@ const NewRecipeCard = ({ image, title, description, tags, actives }: NewRecipeCa
         xl: false,
         '2xl': false,
     });
+
+    const handleCardClick = () => {
+        const mainCategory = category[0] || 'recipes';
+        const mainSubcategory = subcategory[0] || 'all';
+        navigate(`/${mainCategory}/${mainSubcategory}/${id}`);
+    };
+
     return (
         <Box
             border='1px solid rgba(0, 0, 0, 0.08)'
             borderRadius='8px'
             position='relative'
-            minW={[
-                'calc(40% - 16px)',
-                'calc(50% - 6px)',
-                'calc(24% - 17px)',
-                'calc(33% - 11px)',
-                'calc(25% - 16px)',
-            ]}
-            maxW={[
-                'calc(40% - 16px)',
-                'calc(24% - 16px)',
-                'calc(24% - 16px)',
-                'calc(33% - 11px)',
-                'calc(25% - 16px)',
-            ]}
+            cursor='pointer'
+            onClick={handleCardClick}
+            transition='transform 0.2s, box-shadow 0.2s'
+            _hover={{ transform: 'translateY(-5px)', boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)' }}
         >
             <Image
                 src={image}
@@ -65,8 +72,10 @@ const NewRecipeCard = ({ image, title, description, tags, actives }: NewRecipeCa
                 flexDirection='column'
                 alignItems='flex-start'
                 p={['8px 8px 4px', '8px 8px 4px', '8px 8px 4px', '12px', '16px 24px 20px']}
+                position='relative'
+                h='100%'
             >
-                <Flex flexDirection='column' alignItems='flex-start' gap='8px'>
+                <Flex flexDirection='column' alignItems='flex-start' gap='8px' w='100%'>
                     <Text
                         fontFamily='heading'
                         fontSize={['16px', '16px', '16px', '18px', '20px']}
@@ -86,41 +95,56 @@ const NewRecipeCard = ({ image, title, description, tags, actives }: NewRecipeCa
                         {showDescription ? description : ''}
                     </Text>
                 </Flex>
-                <Flex pt={['0', '0', '0', '24px', '24px']} justifyContent='space-between' w='100%'>
-                    <Badge
-                        bg='customLime.150'
-                        textTransform='none'
-                        fontSize='14px'
-                        fontWeight='400'
-                        display='flex'
-                        alignItems='center'
-                        px={['0', '4px', '1px', '8px', '8px']}
-                        py={['0', '1px', '0', '2px', '2px']}
-                        borderRadius='4px'
-                        gap={['2px', '2px', '2px', '8px', '8px']}
-                        position={absoluteBadge ? 'absolute' : 'relative'}
-                        top={absoluteBadge ? ['8px', '8px', '8px', '8px', '8px'] : 'auto'}
-                        left={absoluteBadge ? ['8px', '8px', '8px', '8px', '8px'] : 'auto'}
+
+                <Flex
+                    // flexWrap='wrap'
+                    flexDirection='column'
+                    justifyContent='space-between'
+                    gap='5px'
+                    mt='auto'
+                    pt={['0', '0', '0', '14px', '14px']}
+                    w='100%'
+                    minH={['auto', 'auto', 'auto', '135px', '135px']}
+                >
+                    <Flex
+                        flexWrap='wrap'
+                        gap='5px'
+                        alignContent='flex-start'
+                        alignItems='flex-start'
                     >
-                        <Image src={tags.icon} alt='tag' w='16px' h='16px' />
-                        <Text
-                            fontFamily='heading'
-                            fontSize={['12px', '14px', '14px', '14px', '14px']}
-                            fontWeight='400'
-                        >
-                            {tags.name}
-                        </Text>
-                    </Badge>
-                    <Flex gap='8px'>
-                        {actives.map((active) => (
-                            <Flex key={active.id + active.icon} alignItems='center' gap='6px'>
-                                <Image src={active.icon} alt='active' />
-                                <Text fontSize='14px' fontWeight='400' color='customLime.600'>
-                                    {active.count}
+                        {category.map((tag) => (
+                            <Badge
+                                bg='customLime.150'
+                                textTransform='none'
+                                fontSize='14px'
+                                fontWeight='400'
+                                display='flex'
+                                alignItems='center'
+                                px={['0', '4px', '1px', '8px', '8px']}
+                                py={['0', '1px', '0', '2px', '2px']}
+                                borderRadius='4px'
+                                gap={['2px', '2px', '2px', '8px', '8px']}
+                                position={absoluteBadge ? 'absolute' : 'relative'}
+                                top={absoluteBadge ? ['8px', '8px', '8px', '8px', '8px'] : 'auto'}
+                                left={absoluteBadge ? ['8px', '8px', '8px', '8px', '8px'] : 'auto'}
+                            >
+                                <Image
+                                    src={badgesIcons[tag as keyof typeof badgesIcons].icon}
+                                    alt='tag'
+                                    w='16px'
+                                    h='16px'
+                                />
+                                <Text
+                                    fontFamily='heading'
+                                    fontSize={['12px', '14px', '14px', '14px', '14px']}
+                                    fontWeight='400'
+                                >
+                                    {badgesIcons[tag as keyof typeof badgesIcons].name}
                                 </Text>
-                            </Flex>
+                            </Badge>
                         ))}
                     </Flex>
+                    <BookmarksLikes bookmarks={bookmarks} likes={likes} />
                 </Flex>
             </Flex>
         </Box>

@@ -1,6 +1,7 @@
 import { createBrowserRouter } from 'react-router';
 
 import { menuMockData } from '~/components/Dummies/AccordionMenu/constants';
+import RecipePage from '~/components/Dummies/RecipePage/RecipePage';
 import { MainLayout } from '~/components/Layouts/MainLayout';
 import Main from '~/components/Pages/Main/Main';
 import Succulent from '~/components/Pages/Succulent/Succulent';
@@ -23,6 +24,13 @@ const subCategoryRoutes = menuMockData.flatMap((menuItem) =>
     }),
 );
 
+const recipeDetailRoutes = [
+    {
+        path: '/:category/:subcategory/:id',
+        Component: RecipePage,
+    },
+];
+
 const routes = [
     {
         path: '/',
@@ -31,6 +39,7 @@ const routes = [
             { index: true, Component: Main },
             ...mainCategoryRoutes,
             ...subCategoryRoutes,
+            ...recipeDetailRoutes,
             { path: '/succulent', Component: Succulent },
         ],
     },

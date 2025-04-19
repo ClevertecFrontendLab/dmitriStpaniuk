@@ -1,4 +1,4 @@
-import knelli from '~/assets/images/succulent/knelli.png';
+import knelli from '~/assets/images/main/kneliSoSpagetti.png';
 import lapsha from '~/assets/images/succulent/lapsha.png';
 import tomYam from '~/assets/images/succulent/tomYam.png';
 import vetchina from '~/assets/images/succulent/vetchina.png';

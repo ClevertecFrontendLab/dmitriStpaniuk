@@ -1,5 +1,6 @@
 import { Flex, TabList, TabPanel, TabPanels } from '@chakra-ui/react';
 import { Tab, Tabs } from '@chakra-ui/react';
+import { useEffect, useState } from 'react';
 import { matchPath } from 'react-router';
 import { useLocation, useNavigate } from 'react-router';
 
@@ -10,6 +11,8 @@ const VeganTabs = () => {
     const location = useLocation();
     const navigate = useNavigate();
 
+    const [activeTabIndex, setActiveTabIndex] = useState(0);
+
     const activeSubItem = matchPath(
         {
             path: '/:parent/:subItem',
@@ -18,15 +21,28 @@ const VeganTabs = () => {
         location.pathname,
     );
 
+    //  индекс вкладки при изменении URL
+    useEffect(() => {
+        const index = veganTabsMockData.findIndex(
+            (tab) => tab.href.split('/').pop() === activeSubItem?.params.subItem,
+        );
+
+        if (index !== -1) {
+            setActiveTabIndex(index);
+        }
+    }, [location.pathname, activeSubItem]);
+
     return (
         <Tabs
             mt='32px'
             align='center'
             variant='line'
             colorScheme='customLime'
-            defaultIndex={veganTabsMockData.findIndex(
-                (tab) => tab.href.slice(1) === activeSubItem?.params.subItem,
-            )}
+            index={activeTabIndex}
+            onChange={(index) => {
+                const tabId = veganTabsMockData[index].href.split('/').pop();
+                navigate(`/veganskaya-kuhnya/${tabId}`, { replace: true });
+            }}
             w='100%'
             sx={{
                 '&::-webkit-scrollbar': {
@@ -52,7 +68,8 @@ const VeganTabs = () => {
                     {veganTabsMockData.map((tab) => (
                         <Tab
                             onClick={() => {
-                                navigate(tab.href, { replace: true });
+                                const tabId = tab.href.split('/').pop();
+                                navigate(`/veganskaya-kuhnya/${tabId}`, { replace: true });
                             }}
                             key={tab.id}
                             whiteSpace='nowrap'
