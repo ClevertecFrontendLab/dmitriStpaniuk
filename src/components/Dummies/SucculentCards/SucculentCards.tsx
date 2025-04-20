@@ -8,10 +8,14 @@ import {
     Text,
     useBreakpointValue,
 } from '@chakra-ui/react';
+import { useNavigate } from 'react-router';
 
 import bookmark from '~/assets/svg/main/new/bookmark.svg';
 
+import { sliderMockData } from '../NewRecipe/constants';
+
 interface SucculentCardsProps {
+    id: string;
     image: string;
     title: string;
     description: string;
@@ -29,6 +33,7 @@ interface SucculentCardsProps {
 }
 
 const SucculentCards = ({
+    id,
     image,
     title,
     description,
@@ -36,6 +41,7 @@ const SucculentCards = ({
     actives,
     width,
 }: SucculentCardsProps) => {
+    const navigate = useNavigate();
     const is768 = useBreakpointValue({
         base: true,
         sm: true,
@@ -44,6 +50,15 @@ const SucculentCards = ({
         xl: false,
         '2xl': false,
     });
+
+    const handleCookClick = () => {
+        const recipe = sliderMockData.find((item) => item.id === id);
+        if (recipe) {
+            const mainCategory = recipe.category[0] || 'recipes';
+            const mainSubcategory = recipe.subcategory[0] || 'all';
+            navigate(`/${mainCategory}/${mainSubcategory}/${id}`);
+        }
+    };
 
     return (
         <Flex
@@ -155,6 +170,7 @@ const SucculentCards = ({
                             bg: 'black',
                             color: 'gray.200',
                         }}
+                        onClick={handleCookClick}
                     >
                         <Text
                             fontSize={['12px', '12px', '12px', '14px', '14px']}

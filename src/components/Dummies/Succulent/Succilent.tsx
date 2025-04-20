@@ -67,6 +67,7 @@ export const Succulent = () => {
                 {succulentCardsMockData.map((item) => (
                     <SucculentCards
                         key={item.id + item.title}
+                        id={String(item.id)}
                         image={item.image}
                         title={item.title}
                         description={item.description}
