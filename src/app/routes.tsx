@@ -7,11 +7,6 @@ import Main from '~/components/Pages/Main/Main';
 import Succulent from '~/components/Pages/Succulent/Succulent';
 import Vegan from '~/components/Pages/Vegan/Vegan';
 
-const mainCategoryRoutes = menuMockData.map((menuItem) => ({
-    path: menuItem.href,
-    Component: Vegan,
-}));
-
 const subCategoryRoutes = menuMockData.flatMap((menuItem) =>
     menuItem.submenu.map((subItem) => {
         const categoryPath = menuItem.href.replace(/^\//, '');
@@ -19,7 +14,14 @@ const subCategoryRoutes = menuMockData.flatMap((menuItem) =>
 
         return {
             path: `/${categoryPath}/${subCategoryPath}`,
-            Component: Vegan,
+            Component: () => (
+                <Vegan
+                    headerText={subItem.label}
+                    tabs={menuItem.submenu}
+                    parentHref={menuItem.href}
+                />
+            ),
+            // Component: 'ewr',
         };
     }),
 );
@@ -37,7 +39,6 @@ const routes = [
         Component: MainLayout,
         children: [
             { index: true, Component: Main },
-            ...mainCategoryRoutes,
             ...subCategoryRoutes,
             ...recipeDetailRoutes,
             { path: '/succulent', Component: Succulent },

@@ -4,10 +4,16 @@ import { useEffect, useState } from 'react';
 import { matchPath } from 'react-router';
 import { useLocation, useNavigate } from 'react-router';
 
-import { veganTabsMockData } from './constants';
+// import { veganTabsMockData } from './constants';
 import { VeganTabsData } from './VeganTabsData';
 
-const VeganTabs = () => {
+const VeganTabs = ({
+    tabs,
+    parentHref,
+}: {
+    tabs: { id: number; label: string; href: string }[];
+    parentHref: string;
+}) => {
     const location = useLocation();
     const navigate = useNavigate();
 
@@ -23,14 +29,14 @@ const VeganTabs = () => {
 
     //  индекс вкладки при изменении URL
     useEffect(() => {
-        const index = veganTabsMockData.findIndex(
+        const index = tabs.findIndex(
             (tab) => tab.href.split('/').pop() === activeSubItem?.params.subItem,
         );
 
         if (index !== -1) {
             setActiveTabIndex(index);
         }
-    }, [location.pathname, activeSubItem]);
+    }, [location.pathname, activeSubItem, tabs]);
 
     return (
         <Tabs
@@ -40,8 +46,8 @@ const VeganTabs = () => {
             colorScheme='customLime'
             index={activeTabIndex}
             onChange={(index) => {
-                const tabId = veganTabsMockData[index].href.split('/').pop();
-                navigate(`/veganskaya-kuhnya/${tabId}`, { replace: true });
+                const tabId = tabs[index].href.split('/').pop();
+                navigate(`${parentHref}/${tabId}`, { replace: true });
             }}
             w='100%'
             sx={{
@@ -65,11 +71,11 @@ const VeganTabs = () => {
                 }}
             >
                 <TabList margin='0 auto' minW='max-content'>
-                    {veganTabsMockData.map((tab) => (
+                    {tabs.map((tab) => (
                         <Tab
                             onClick={() => {
                                 const tabId = tab.href.split('/').pop();
-                                navigate(`/veganskaya-kuhnya/${tabId}`, { replace: true });
+                                navigate(`/vegan-cuisine/${tabId}`, { replace: true });
                             }}
                             key={tab.id}
                             whiteSpace='nowrap'
@@ -86,7 +92,7 @@ const VeganTabs = () => {
                                     : {}
                             }
                         >
-                            {tab.title}
+                            {tab.label}
                         </Tab>
                     ))}
                 </TabList>

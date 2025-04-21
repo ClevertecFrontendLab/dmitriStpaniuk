@@ -24,7 +24,7 @@ export const AccordionMenu: FC<AccordionMenuProps> = ({ onPageChange }) => {
         const parentName = parentHref.replace(/^\//, '');
         const subItemName = subItemHref.replace(/^\//, '');
 
-        //  берем первый элемент
+        // первый элемент
         if (!subItemName) {
             const parentItem = menuMockData.find((item) => item.href.slice(1) === parentName);
             if (parentItem && parentItem.submenu.length > 0) {

@@ -20,6 +20,7 @@ export const VeganTabsData = () => (
             {veganTabsCardsMockData.map((item) => (
                 <SucculentCards
                     key={item.id + item.title}
+                    id={item.id.toString()}
                     image={item.image}
                     title={item.title}
                     description={item.description}

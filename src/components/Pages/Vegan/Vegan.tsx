@@ -1,10 +1,17 @@
 import { Flex } from '@chakra-ui/react';
 
-import { searchMainPageMockData } from '~/components/Dummies/SearchMainPage/constants';
 import SearchMainPage from '~/components/Dummies/SearchMainPage/SearchMainPage';
 import VeganTabs from '~/components/Dummies/VeganTabs/VeganStabs';
 
-const Vegan = () => (
+const Vegan = ({
+    headerText,
+    tabs,
+    parentHref,
+}: {
+    headerText: string;
+    tabs: { id: number; label: string; href: string }[];
+    parentHref: string;
+}) => (
     <Flex
         flexDirection='column'
         h={[
@@ -16,8 +23,8 @@ const Vegan = () => (
         ]}
         w='100%'
     >
-        <SearchMainPage data={searchMainPageMockData[1]} />
-        <VeganTabs />
+        <SearchMainPage data={{ title: headerText, description: '' }} />
+        <VeganTabs tabs={tabs} parentHref={parentHref} />
     </Flex>
 );
 

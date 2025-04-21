@@ -19,7 +19,7 @@ export const LeftFooter = () => (
             Все права защищены, ученический файл,
             <br /> ©Клевер Технолоджи, 2025
         </Text>
-        <Flex alignItems='center' gap='6px' cursor='pointer' pb='32px'>
+        <Flex alignItems='center' gap='6px' cursor='pointer'>
             <Image src={exitIcon} alt='Выйти' />
             <Text fontWeight='600'>Выйти</Text>
         </Flex>
