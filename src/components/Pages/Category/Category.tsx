@@ -1,16 +1,19 @@
 import { Flex } from '@chakra-ui/react';
 
+import CategoryTabs from '~/components/Dummies/CategoryTabs/CategoryTabs';
+import type { SliderMockData } from '~/components/Dummies/NewRecipe/newRecipe.d';
 import SearchMainPage from '~/components/Dummies/SearchMainPage/SearchMainPage';
-import VeganTabs from '~/components/Dummies/VeganTabs/VeganStabs';
 
-const Vegan = ({
+const CategoryPage = ({
     headerText,
     tabs,
     parentHref,
+    categoryData,
 }: {
     headerText: string;
     tabs: { id: number; label: string; href: string }[];
     parentHref: string;
+    categoryData: SliderMockData[];
 }) => (
     <Flex
         flexDirection='column'
@@ -24,8 +27,8 @@ const Vegan = ({
         w='100%'
     >
         <SearchMainPage data={{ title: headerText, description: '' }} />
-        <VeganTabs tabs={tabs} parentHref={parentHref} />
+        <CategoryTabs tabs={tabs} parentHref={parentHref} categoryData={categoryData} />
     </Flex>
 );
 
-export default Vegan;
+export default CategoryPage;

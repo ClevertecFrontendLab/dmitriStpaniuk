@@ -108,7 +108,7 @@ import { SliderMockData } from './newRecipe.d';
 //     },
 // ];
 
-export const badgesIcons = {
+export const badges = {
     vegan: { name: 'Веганские блюда', icon: vegan },
     'second-dish': { name: 'Вторые блюда', icon: second },
     snacks: { name: 'Закуски', icon: zakuski },

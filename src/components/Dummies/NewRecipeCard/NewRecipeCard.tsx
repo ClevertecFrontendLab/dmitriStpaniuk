@@ -1,8 +1,8 @@
-import { Badge, Box, Flex, Image, Text, useBreakpointValue } from '@chakra-ui/react';
+import { Box, Flex, Image, Tag, Text, useBreakpointValue } from '@chakra-ui/react';
 import { useNavigate } from 'react-router';
 
 import BookmarksLikes from '../BookmarksLikes/BookmarksLikes';
-import { badgesIcons } from '../NewRecipe/constants';
+import { badges } from '../NewRecipe/constants';
 
 interface NewRecipeCardProps {
     id: string;
@@ -113,23 +113,23 @@ const NewRecipeCard = ({
                         alignItems='flex-start'
                     >
                         {category.map((tag) => (
-                            <Badge
+                            <Tag
                                 bg='customLime.150'
                                 textTransform='none'
                                 fontSize='14px'
                                 fontWeight='400'
-                                display='flex'
-                                alignItems='center'
-                                px={['0', '4px', '1px', '8px', '8px']}
-                                py={['0', '1px', '0', '2px', '2px']}
-                                borderRadius='4px'
+                                // display='flex'
+                                // alignItems='center'
+                                // px={['0', '4px', '1px', '8px', '8px']}
+                                // py={['0', '1px', '0', '2px', '2px']}
+                                // borderRadius='4px'
                                 gap={['2px', '2px', '2px', '8px', '8px']}
                                 position={absoluteBadge ? 'absolute' : 'relative'}
                                 top={absoluteBadge ? ['8px', '8px', '8px', '8px', '8px'] : 'auto'}
                                 left={absoluteBadge ? ['8px', '8px', '8px', '8px', '8px'] : 'auto'}
                             >
                                 <Image
-                                    src={badgesIcons[tag as keyof typeof badgesIcons].icon}
+                                    src={badges[tag as keyof typeof badges].icon}
                                     alt='tag'
                                     w='16px'
                                     h='16px'
@@ -139,9 +139,9 @@ const NewRecipeCard = ({
                                     fontSize={['12px', '14px', '14px', '14px', '14px']}
                                     fontWeight='400'
                                 >
-                                    {badgesIcons[tag as keyof typeof badgesIcons].name}
+                                    {badges[tag as keyof typeof badges].name}
                                 </Text>
-                            </Badge>
+                            </Tag>
                         ))}
                     </Flex>
                     <BookmarksLikes bookmarks={bookmarks} likes={likes} />

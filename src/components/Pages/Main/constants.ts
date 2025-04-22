@@ -1,6 +1,6 @@
 import bookmark from '~/assets/svg/main/new/bookmark.svg';
-import eyes from '~/assets/svg/main/new/eyes.svg';
 import fb from '~/assets/svg/main/new/fb.svg';
+import like from '~/assets/svg/main/new/like.svg';
 import sb from '~/assets/svg/main/succulent/sb.svg';
 
 export const relevantKitchenMockData = [
@@ -17,7 +17,7 @@ export const relevantKitchenMockData = [
             },
             {
                 id: 35776821,
-                icon: eyes,
+                icon: like,
                 count: 1,
             },
         ],
@@ -42,7 +42,7 @@ export const relevantKitchenMockData = [
             },
             {
                 id: 213412341234,
-                icon: eyes,
+                icon: like,
                 count: 1,
             },
         ],

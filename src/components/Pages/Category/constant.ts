@@ -1,7 +1,7 @@
 import children from '~/assets/svg/children.svg';
 import listik from '~/assets/svg/listik.svg';
 import bookmark from '~/assets/svg/main/new/bookmark.svg';
-import eyes from '~/assets/svg/main/new/eyes.svg';
+import like from '~/assets/svg/main/new/like.svg';
 import national from '~/assets/svg/national.svg';
 
 export const veganCuisineListCardMockData = [
@@ -39,7 +39,7 @@ export const relevantKitchenMockData = [
             },
             {
                 id: 357768223,
-                icon: eyes,
+                icon: like,
                 count: 1,
             },
         ],
@@ -64,7 +64,7 @@ export const relevantKitchenMockData = [
             },
             {
                 id: 213412341234,
-                icon: eyes,
+                icon: like,
                 count: 1,
             },
         ],

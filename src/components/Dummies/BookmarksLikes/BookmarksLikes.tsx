@@ -1,7 +1,7 @@
 import { Flex, Image, Text } from '@chakra-ui/react';
 
 import bookmark from '~/assets/svg/main/new/bookmark.svg';
-import eyes from '~/assets/svg/main/new/eyes.svg';
+import like from '~/assets/svg/main/new/like.svg';
 
 interface BookmarksLikesProps {
     bookmarks: number;
@@ -18,7 +18,7 @@ const BookmarksLikes = ({ bookmarks, likes, gap = '8px' }: BookmarksLikesProps) 
             </Text>
         </Flex>
         <Flex key={likes} alignItems='center' gap='6px'>
-            <Image src={eyes} alt='active' />
+            <Image src={like} alt='active' />
             <Text fontSize='14px' fontWeight='400' color='customLime.600'>
                 {likes}
             </Text>

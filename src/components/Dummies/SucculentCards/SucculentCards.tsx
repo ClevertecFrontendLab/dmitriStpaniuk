@@ -11,24 +11,22 @@ import {
 import { useNavigate } from 'react-router';
 
 import bookmark from '~/assets/svg/main/new/bookmark.svg';
+import like from '~/assets/svg/main/new/like.svg';
 
-import { sliderMockData } from '../NewRecipe/constants';
+import { badges, sliderMockData } from '../NewRecipe/constants';
+
+// Define a type for the badge keys
+type BadgeKey = keyof typeof badges;
 
 interface SucculentCardsProps {
     id: string;
     image: string;
     title: string;
     description: string;
-    tags: {
-        id: number;
-        icon: string;
-        name: string;
-    }[];
-    actives: {
-        id: number;
-        icon: string;
-        count: number;
-    }[];
+    category?: string[];
+    subcategory?: string[];
+    bookmarks: number;
+    likes: number;
     width?: string[];
 }
 
@@ -37,8 +35,9 @@ const SucculentCards = ({
     image,
     title,
     description,
-    tags,
-    actives,
+    subcategory,
+    bookmarks,
+    likes,
     width,
 }: SucculentCardsProps) => {
     const navigate = useNavigate();
@@ -83,36 +82,47 @@ const SucculentCards = ({
                 w='100%'
             >
                 <Flex justifyContent='space-between' alignItems='center'>
-                    {tags.map((tag) => (
-                        <Badge
-                            key={tag.id + tag.name}
-                            position={is768 ? 'absolute' : 'relative'}
-                            top={is768 ? '8px' : '0'}
-                            left={is768 ? '8px' : '0'}
-                            bg='customLime.50'
-                            borderRadius='4px'
-                            px={['4px', '4px', '4px', '8px', '8px']}
-                            py='2px'
-                            alignItems='center'
-                            display='flex'
-                            gap={['2px', '2px', '2px', '8px', '8px']}
-                            textTransform='none'
-                            fontSize='14px'
-                            fontWeight='400'
-                        >
-                            <Image src={tag.icon} alt='tag' />
-                            {tag.name}
-                        </Badge>
-                    ))}
+                    {subcategory?.map((tag) => {
+                        const badgeKey = tag as BadgeKey;
+                        const badge = badges[badgeKey];
+
+                        if (!badge) return null;
+
+                        return (
+                            <Badge
+                                key={tag}
+                                position={is768 ? 'absolute' : 'relative'}
+                                top={is768 ? '8px' : '0'}
+                                left={is768 ? '8px' : '0'}
+                                bg='customLime.50'
+                                borderRadius='4px'
+                                px={['4px', '4px', '4px', '8px', '8px']}
+                                py='2px'
+                                alignItems='center'
+                                display='flex'
+                                gap={['2px', '2px', '2px', '8px', '8px']}
+                                textTransform='none'
+                                fontSize='14px'
+                                fontWeight='400'
+                            >
+                                <Image src={badge.icon} alt='tag' />
+                                {badge.name}
+                            </Badge>
+                        );
+                    })}
                     <Flex gap='20px'>
-                        {actives.map((active) => (
-                            <Flex key={active.id + active.icon} alignItems='center' gap='6px'>
-                                <Image src={active.icon} alt='active' />
-                                <Text fontSize='12px' fontWeight='600' color='customLime.600'>
-                                    {active.count}
-                                </Text>
-                            </Flex>
-                        ))}
+                        <Flex key={bookmarks} alignItems='center' gap='6px'>
+                            <Image src={bookmark} alt='bookmark' />
+                            <Text fontSize='12px' fontWeight='600' color='customLime.600'>
+                                {bookmarks}
+                            </Text>
+                        </Flex>
+                        <Flex key={likes} alignItems='center' gap='6px'>
+                            <Image src={like} alt='like' />
+                            <Text fontSize='12px' fontWeight='600' color='customLime.600'>
+                                {likes}
+                            </Text>
+                        </Flex>
                     </Flex>
                 </Flex>
                 <Text

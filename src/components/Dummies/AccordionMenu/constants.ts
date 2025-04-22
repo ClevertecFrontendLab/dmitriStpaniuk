@@ -22,7 +22,7 @@ export const menuMockData = [
             {
                 id: 45366,
                 label: 'Мясные салаты',
-                href: '/myasnye-salaty',
+                href: '/meat-salads',
             },
             {
                 id: 272465745768,
@@ -83,7 +83,7 @@ export const menuMockData = [
         id: 3,
         label: 'Первые блюда',
         icon: first,
-        href: '/first-dishes',
+        href: '/first-dish',
         submenu: [
             {
                 id: 112,
@@ -166,7 +166,7 @@ export const menuMockData = [
             {
                 id: 126,
                 label: 'Овощные гарниры',
-                href: '/vegetables-side-dishes',
+                href: '/vegetables-side-dish',
             },
             {
                 id: 127,
@@ -224,7 +224,7 @@ export const menuMockData = [
             {
                 id: 24,
                 label: 'Из заварного теста',
-                href: '/from-yeast-dough',
+                href: '/from-zavarnogo-dough',
             },
             {
                 id: 25,
@@ -257,7 +257,7 @@ export const menuMockData = [
         id: 6,
         label: 'Блюда на гриле',
         icon: grill,
-        href: '/grill-dishes',
+        href: '/grill-dish',
         submenu: [
             {
                 id: 30,
@@ -295,8 +295,8 @@ export const menuMockData = [
         id: 7,
         label: 'Веганская кухня',
         icon: vegan,
-        href: '/vegan-cuisine',
-        attributes: 'vegan-cuisine',
+        href: '/vegan',
+        attributes: 'vegan',
         submenu: [
             {
                 id: 36,
@@ -306,12 +306,12 @@ export const menuMockData = [
             {
                 id: 37,
                 label: 'Первые блюда',
-                href: '/first-dishes',
+                href: '/first-dish',
             },
             {
                 id: 38,
                 label: 'Вторые блюда',
-                href: '/second-dishes',
+                href: '/second-dish',
             },
             {
                 id: 39,
@@ -354,7 +354,7 @@ export const menuMockData = [
             {
                 id: 45,
                 label: 'Вторые блюда',
-                href: '/second-dishes',
+                href: '/second-dish',
             },
             {
                 id: 46,
@@ -480,7 +480,7 @@ export const menuMockData = [
         id: 10,
         label: 'Национальные',
         icon: national,
-        href: '/national-dishes',
+        href: '/national-dish',
         submenu: [
             {
                 id: 68,

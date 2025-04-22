@@ -3,29 +3,32 @@ import { Button, Flex, Text } from '@chakra-ui/react';
 import {
     relevantKitchenMockData,
     relevantKitchenTitleDescriptionMockData,
-} from '~/components/Pages/Vegan/constant';
+} from '~/components/Pages/Category/constant';
 
+import type { SliderMockData } from '../NewRecipe/newRecipe.d';
 import RelevantKitchen from '../RelevantKitchen/RelevantKitchen';
 import SucculentCards from '../SucculentCards/SucculentCards';
 import { veganCuisineListCardMockData } from '../VeganCuisineListCards/constants';
-import { veganTabsCardsMockData } from './constants';
+// import { veganTabsCardsMockData } from './constants';
 
-export const VeganTabsData = () => (
+export const CategoryTabsData = ({ categoryData }: { categoryData: SliderMockData[] }) => (
     <Flex flexDirection='column' alignItems='flex-start' position='relative' mt='24px'>
         <Flex
             flexWrap='wrap'
             justifyContent='space-between'
             gap={['11px', '11px', '16px', '14px', '14px']}
         >
-            {veganTabsCardsMockData.map((item) => (
+            {categoryData?.map((item) => (
                 <SucculentCards
                     key={item.id + item.title}
                     id={item.id.toString()}
                     image={item.image}
                     title={item.title}
                     description={item.description}
-                    tags={item.tags}
-                    actives={item.actives}
+                    category={item.category}
+                    subcategory={item.subcategory}
+                    bookmarks={item.bookmarks}
+                    likes={item.likes}
                     width={[
                         'calc(50% - 12px)',
                         '100%',

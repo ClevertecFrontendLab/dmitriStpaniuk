@@ -32,9 +32,9 @@ import cheliki from '~/assets/svg/main/cheliki.svg';
 import clock from '~/assets/svg/main/clock.svg';
 import headPlus from '~/assets/svg/main/headPlus.svg';
 import bookmark from '~/assets/svg/main/new/bookmark.svg';
-import eyes from '~/assets/svg/main/new/eyes.svg';
+import like from '~/assets/svg/main/new/like.svg';
 import { sliderMockData } from '~/components/Dummies/NewRecipe/constants';
-import { badgesIcons } from '~/components/Dummies/NewRecipe/constants';
+import { badges } from '~/components/Dummies/NewRecipe/constants';
 
 import BookmarksLikes from '../BookmarksLikes/BookmarksLikes';
 
@@ -123,21 +123,15 @@ const RecipePage = () => {
                                         gap={2}
                                         cursor='pointer'
                                     >
-                                        {badgesIcons[tag as keyof typeof badgesIcons]?.icon && (
+                                        {badges[tag as keyof typeof badges]?.icon && (
                                             <Image
-                                                src={
-                                                    badgesIcons[tag as keyof typeof badgesIcons]
-                                                        .icon
-                                                }
-                                                alt={
-                                                    badgesIcons[tag as keyof typeof badgesIcons]
-                                                        .name
-                                                }
+                                                src={badges[tag as keyof typeof badges].icon}
+                                                alt={badges[tag as keyof typeof badges].name}
                                                 w='16px'
                                                 h='16px'
                                             />
                                         )}
-                                        {badgesIcons[tag as keyof typeof badgesIcons]?.name || tag}
+                                        {badges[tag as keyof typeof badges]?.name || tag}
                                     </Badge>
                                 ))}
                             </Flex>
@@ -181,7 +175,7 @@ const RecipePage = () => {
                             </Badge>
                             <Flex gap={2}>
                                 <Button variant='outline' gap={2} borderRadius='md' p='10px 20px'>
-                                    <Image src={eyes} w='16px' h='16px' />
+                                    <Image src={like} w='16px' h='16px' />
                                     <Text fontWeight={600} fontSize='18px'>
                                         Оценить рецепт
                                     </Text>
