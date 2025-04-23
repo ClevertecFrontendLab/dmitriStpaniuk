@@ -481,4 +481,39 @@ export const sliderMockData: SliderMockData[] = [
         meat: '',
         side: '',
     },
+    {
+        id: '9',
+        title: 'Гриль-салат с овощами',
+        description:
+            'Салат с обжаренными на гриле овощами и легкой заправкой. Самое вкусное и полезное блюдо для лета!',
+        category: ['salads'],
+        subcategory: ['warm-salads'],
+        image: salatZdorovie,
+        bookmarks: 10,
+        likes: 80,
+        date: '2023-03-20T00:00:00Z',
+        time: '25 минут',
+        portions: 2,
+        nutritionValue: { calories: 150, proteins: 4, fats: 6, carbohydrates: 20 },
+        ingredients: [
+            { title: 'цуккини', count: '1', measureUnit: 'шт.' },
+            { title: 'болгарский перец', count: '1', measureUnit: 'шт.' },
+            { title: 'баклажан', count: '1', measureUnit: 'шт.' },
+            { title: 'оливковое масло', count: '0', measureUnit: 'по вкусу' },
+        ],
+        steps: [
+            {
+                stepNumber: 1,
+                description: 'Обжарить овощи на гриле.',
+                image: kartoshka,
+            },
+            {
+                stepNumber: 2,
+                description: 'Смешать с заправкой и подавать.',
+                image: kartoshka,
+            },
+        ],
+        meat: '',
+        side: '',
+    },
 ];

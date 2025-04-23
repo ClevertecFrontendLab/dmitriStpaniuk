@@ -19,7 +19,7 @@ export const NewRecipe: FC = () => {
 
     const swiperRef = useRef<SwiperType | null>(null);
 
-    const slides = sliderMockData
+    const slides = [...sliderMockData]
         .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
         .map((item) => (
             <NewRecipeCard

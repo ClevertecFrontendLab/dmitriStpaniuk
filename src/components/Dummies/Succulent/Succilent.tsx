@@ -2,8 +2,8 @@ import { ArrowForwardIcon } from '@chakra-ui/icons';
 import { Button, Flex, Text, useBreakpointValue } from '@chakra-ui/react';
 import { Link } from 'react-router';
 
+import { sliderMockData } from '../NewRecipe/constants';
 import SucculentCards from '../SucculentCards/SucculentCards';
-import { succulentCardsMockData } from './constants';
 
 export const Succulent = () => {
     const isMobile = useBreakpointValue({
@@ -64,15 +64,15 @@ export const Succulent = () => {
             </Link>
 
             <Flex flexWrap='wrap' gap={['11px', '11px', '16px', '14px', '24px']}>
-                {succulentCardsMockData.map((item) => (
+                {sliderMockData.map((item) => (
                     <SucculentCards
                         key={item.id + item.title}
                         id={String(item.id)}
                         image={item.image}
                         title={item.title}
                         description={item.description}
-                        // tags={item.tags}
-                        // actives={item.actives}
+                        bookmarks={item.bookmarks}
+                        likes={item.likes}
                         width={[
                             'calc(50% - 12px)',
                             '100%',
