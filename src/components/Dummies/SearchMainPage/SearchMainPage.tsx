@@ -91,7 +91,7 @@ const SearchMainPage = ({ data }: { data: { title: string; description: string }
                             type='search'
                             placeholder='Название или ингредиент...'
                             borderColor='blackAlpha.300'
-                            _placeholder={{ color: 'gray.400' }}
+                            _placeholder={{ color: '#134b00' }}
                             _focus={{
                                 boxShadow: 'none',
                                 borderColor: 'blackAlpha.300',
@@ -122,7 +122,14 @@ const SearchMainPage = ({ data }: { data: { title: string; description: string }
                             </FormLabel>
                             <Switch
                                 id='allergies'
-                                colorScheme='green'
+                                sx={{
+                                    '& span[data-checked]': {
+                                        backgroundColor: '#b1ff2e !important',
+                                    },
+                                    '& span[data-checked] span': {
+                                        backgroundColor: 'white !important',
+                                    },
+                                }}
                                 isChecked={isAllergensEnabled}
                                 onChange={(e) => setIsAllergensEnabled(e.target.checked)}
                             />

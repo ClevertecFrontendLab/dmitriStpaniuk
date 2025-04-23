@@ -71,8 +71,8 @@ export const Succulent = () => {
                         image={item.image}
                         title={item.title}
                         description={item.description}
-                        tags={item.tags}
-                        actives={item.actives}
+                        // tags={item.tags}
+                        // actives={item.actives}
                         width={[
                             'calc(50% - 12px)',
                             '100%',

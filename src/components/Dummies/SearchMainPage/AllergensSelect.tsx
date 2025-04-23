@@ -1,12 +1,16 @@
+import { AddIcon, ChevronDownIcon, CloseIcon } from '@chakra-ui/icons';
 import {
     Box,
+    Button,
     Checkbox,
     Flex,
     Input,
+    Menu,
+    MenuButton,
+    MenuItem,
+    MenuList,
     Tag,
-    TagCloseButton,
     TagLabel,
-    useOutsideClick,
 } from '@chakra-ui/react';
 import { useRef, useState } from 'react';
 
@@ -14,6 +18,7 @@ interface Allergen {
     id: number;
     name: string;
     checked: boolean;
+    isCustom?: boolean;
 }
 
 const initialAllergens: Allergen[] = [
@@ -34,140 +39,176 @@ interface AllergensSelectProps {
 
 const AllergensSelect = ({ isEnabled }: AllergensSelectProps) => {
     const [allergens, setAllergens] = useState<Allergen[]>(initialAllergens);
-    const [isOpen, setIsOpen] = useState(false);
+    const [customAllergens, setCustomAllergens] = useState<Allergen[]>([]);
     const [inputValue, setInputValue] = useState('');
-    const ref = useRef<HTMLDivElement>(null);
-
-    useOutsideClick({
-        ref: ref as React.RefObject<HTMLElement>,
-        handler: () => setIsOpen(false),
-    });
+    const menuRef = useRef<HTMLDivElement>(null);
 
     const handleCheckboxChange = (id: number) => {
-        setAllergens(
-            allergens.map((allergen) =>
+        setAllergens((prevAllergens) =>
+            prevAllergens.map((allergen) =>
                 allergen.id === id ? { ...allergen, checked: !allergen.checked } : allergen,
             ),
         );
     };
 
-    const handleRemoveTag = (id: number) => {
-        setAllergens(
-            allergens.map((allergen) =>
-                allergen.id === id ? { ...allergen, checked: false } : allergen,
-            ),
-        );
-    };
-
-    const handleInputKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-        if (e.key === 'Enter' && inputValue.trim()) {
-            const newAllergen = {
-                id: allergens.length + 1,
+    const handleAddCustomAllergen = () => {
+        if (inputValue.trim()) {
+            const newAllergen: Allergen = {
+                id: Date.now(),
                 name: inputValue.trim(),
                 checked: true,
+                isCustom: true,
             };
-            setAllergens([...allergens, newAllergen]);
+            setCustomAllergens((prev) => [...prev, newAllergen]);
             setInputValue('');
         }
     };
 
-    const selectedAllergens = allergens.filter((allergen) => allergen.checked);
+    const handleClearAll = (e: React.MouseEvent) => {
+        e.preventDefault();
+        e.stopPropagation();
+        setAllergens((prevAllergens) =>
+            prevAllergens.map((allergen) => ({ ...allergen, checked: false })),
+        );
+        setCustomAllergens([]);
+    };
+
+    const selectedAllergens = [
+        ...allergens.filter((allergen) => allergen.checked),
+        ...customAllergens,
+    ];
 
     return (
-        <Box position='relative' w='100%' ref={ref}>
-            <Flex
-                border='1px solid'
-                borderColor='blackAlpha.300'
-                borderRadius='md'
-                p={2}
-                onClick={() => isEnabled && setIsOpen(true)}
-                cursor={isEnabled ? 'text' : 'not-allowed'}
-                bg={isEnabled ? 'white' : 'gray.100'}
-                flexWrap='wrap'
-                gap={2}
-                _focusWithin={{
-                    boxShadow: '0px 2px 8px rgba(0, 0, 0, 0.1)',
-                }}
-            >
-                {selectedAllergens.map((allergen) => (
-                    <Tag
-                        key={allergen.id}
-                        size='sm'
-                        borderRadius='full'
-                        variant='solid'
-                        bg='#b1ff2e'
-                    >
-                        <TagLabel fontSize='10px'>{allergen.name}</TagLabel>
-                        <TagCloseButton
-                            onClick={(e) => {
-                                e.stopPropagation();
-                                handleRemoveTag(allergen.id);
-                            }}
-                        />
-                    </Tag>
-                ))}
-                <Input
-                    placeholder={selectedAllergens.length === 0 ? 'Выберите из списка...' : ''}
-                    border='none'
-                    _focus={{ border: 'none', boxShadow: 'none' }}
-                    flex='1'
-                    minW='100px'
-                    value={inputValue}
-                    onChange={(e) => setInputValue(e.target.value)}
-                    isDisabled={!isEnabled}
-                    fontSize='14px'
-                    _placeholder={{ color: 'gray.400' }}
-                    onClick={() => isEnabled && setIsOpen(true)}
-                />
-            </Flex>
-
-            {isOpen && isEnabled && (
-                <Box
-                    position='absolute'
-                    top='100%'
-                    left='0'
-                    right='0'
-                    mt={2}
-                    bg='white'
-                    borderRadius='md'
-                    boxShadow='lg'
-                    zIndex={10}
-                    maxH='300px'
-                    overflowY='auto'
-                >
-                    <Flex p={2} borderBottom='1px solid' borderColor='gray.100'>
-                        <Input
-                            placeholder='кунжут'
-                            size='sm'
-                            value={inputValue}
-                            onChange={(e) => setInputValue(e.target.value)}
-                            onKeyDown={handleInputKeyDown}
-                            borderRadius='md'
-                            _placeholder={{ color: 'gray.400' }}
-                            _focus={{
-                                borderColor: 'blackAlpha.300',
-                                boxShadow: '0px 2px 8px rgba(0, 0, 0, 0.1)',
-                            }}
-                        />
-                    </Flex>
-                    {allergens
-                        .filter((allergen) =>
-                            allergen.name.toLowerCase().includes(inputValue.toLowerCase()),
-                        )
-                        .map((allergen) => (
-                            <Checkbox
-                                key={allergen.id}
-                                isChecked={allergen.checked}
-                                onChange={() => handleCheckboxChange(allergen.id)}
-                                p={2}
-                                w='100%'
-                                colorScheme='green'
-                            >
-                                {allergen.name}
-                            </Checkbox>
-                        ))}
-                </Box>
-            )}
+        <Box position='relative' w='100%' ref={menuRef}>
+            <Menu closeOnSelect={false} gutter={1}>
+                {({ isOpen: _isOpen }) => (
+                    <>
+                        <MenuButton
+                            as={Button}
+                            rightIcon={
+                                selectedAllergens.length > 0 ? (
+                                    <Flex gap={2} alignItems='center'>
+                                        <Box
+                                            as='span'
+                                            cursor='pointer'
+                                            onClick={handleClearAll}
+                                            _hover={{ opacity: 0.7 }}
+                                            display='flex'
+                                            alignItems='center'
+                                        >
+                                            <CloseIcon boxSize={3} color='gray.500' />
+                                        </Box>
+                                        <ChevronDownIcon />
+                                    </Flex>
+                                ) : (
+                                    <ChevronDownIcon />
+                                )
+                            }
+                            w='100%'
+                            isDisabled={!isEnabled}
+                            bg={isEnabled ? 'white' : 'gray.100'}
+                            _hover={{ bg: isEnabled ? 'gray.50' : 'gray.100' }}
+                            borderWidth='1px'
+                            borderColor='customLime.400'
+                            h='auto'
+                            py={2}
+                            px={4}
+                        >
+                            <Flex flexWrap='wrap' gap={2} alignItems='center' w='100%'>
+                                {selectedAllergens.length === 0 ? (
+                                    <Box color='gray.400' fontSize='14px'>
+                                        Выберите из списка...
+                                    </Box>
+                                ) : (
+                                    selectedAllergens.map((allergen) => (
+                                        <Tag
+                                            key={allergen.id}
+                                            size='sm'
+                                            borderRadius='6px'
+                                            border='1px solid'
+                                            borderColor='customLime.400'
+                                            variant='solid'
+                                            bg='white'
+                                        >
+                                            <TagLabel
+                                                color='customLime.600'
+                                                fontSize='12px'
+                                                fontWeight='500'
+                                            >
+                                                {allergen.name}
+                                            </TagLabel>
+                                        </Tag>
+                                    ))
+                                )}
+                            </Flex>
+                        </MenuButton>
+                        <MenuList zIndex={1500} position='relative' w='82%' maxW='100%'>
+                            {allergens.map((allergen, index) => (
+                                <MenuItem
+                                    key={allergen.id}
+                                    onClick={() => handleCheckboxChange(allergen.id)}
+                                    bg={index % 2 === 0 ? 'gray.50' : 'white'}
+                                    _hover={{ bg: index % 2 === 0 ? 'gray.100' : 'gray.50' }}
+                                >
+                                    <Checkbox
+                                        isChecked={allergen.checked}
+                                        size='md'
+                                        w='100%'
+                                        sx={{
+                                            '.chakra-checkbox__control': {
+                                                borderColor: 'customLime.400',
+                                                borderRadius: '2px',
+                                                _checked: {
+                                                    bg: '#b1ff2e',
+                                                    borderColor: '#b1ff2e',
+                                                    color: 'black',
+                                                    _hover: {
+                                                        bg: '#b1ff2e',
+                                                        borderColor: '#b1ff2e',
+                                                    },
+                                                },
+                                            },
+                                        }}
+                                        onChange={(e) => {
+                                            e.stopPropagation();
+                                            handleCheckboxChange(allergen.id);
+                                        }}
+                                    >
+                                        {allergen.name}
+                                    </Checkbox>
+                                </MenuItem>
+                            ))}
+                            <Box p={3} borderTop='1px' borderColor='gray.200'>
+                                <Flex gap={2}>
+                                    <Input
+                                        placeholder='Добавить свой аллерген'
+                                        value={inputValue}
+                                        onChange={(e) => setInputValue(e.target.value)}
+                                        onKeyDown={(e) => {
+                                            if (e.key === 'Enter') {
+                                                e.preventDefault();
+                                                handleAddCustomAllergen();
+                                            }
+                                        }}
+                                        size='sm'
+                                    />
+                                    <Button
+                                        size='sm'
+                                        onClick={(e) => {
+                                            e.stopPropagation();
+                                            handleAddCustomAllergen();
+                                        }}
+                                        colorScheme='green'
+                                        variant='ghost'
+                                    >
+                                        <AddIcon />
+                                    </Button>
+                                </Flex>
+                            </Box>
+                        </MenuList>
+                    </>
+                )}
+            </Menu>
         </Box>
     );
 };
