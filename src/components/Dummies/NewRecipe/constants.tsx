@@ -117,6 +117,7 @@ export const badges = {
     vegetables: { name: 'Овощи', icon: vegan },
     'side-dishes': { name: 'Полуфабрикаты', icon: sous },
     salads: { name: 'Салаты', icon: salad },
+    'warm-salads': { name: 'Горячие салаты', icon: salad },
 };
 
 export const sliderMockData: SliderMockData[] = [

@@ -97,7 +97,6 @@ const NewRecipeCard = ({
                 </Flex>
 
                 <Flex
-                    // flexWrap='wrap'
                     flexDirection='column'
                     justifyContent='space-between'
                     gap='5px'
@@ -114,15 +113,11 @@ const NewRecipeCard = ({
                     >
                         {category.map((tag) => (
                             <Tag
+                                key={tag}
                                 bg='customLime.150'
                                 textTransform='none'
                                 fontSize='14px'
                                 fontWeight='400'
-                                // display='flex'
-                                // alignItems='center'
-                                // px={['0', '4px', '1px', '8px', '8px']}
-                                // py={['0', '1px', '0', '2px', '2px']}
-                                // borderRadius='4px'
                                 gap={['2px', '2px', '2px', '8px', '8px']}
                                 position={absoluteBadge ? 'absolute' : 'relative'}
                                 top={absoluteBadge ? ['8px', '8px', '8px', '8px', '8px'] : 'auto'}

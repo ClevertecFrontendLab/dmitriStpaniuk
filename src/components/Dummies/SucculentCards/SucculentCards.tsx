@@ -1,10 +1,10 @@
 import {
-    Badge,
     Button,
     Flex,
     IconButton,
     Image,
     Stack,
+    Tag,
     Text,
     useBreakpointValue,
 } from '@chakra-ui/react';
@@ -35,6 +35,7 @@ const SucculentCards = ({
     image,
     title,
     description,
+    // category,
     subcategory,
     bookmarks,
     likes,
@@ -81,35 +82,34 @@ const SucculentCards = ({
                 justifyContent='space-between'
                 w='100%'
             >
-                <Flex justifyContent='space-between' alignItems='center'>
-                    {subcategory?.map((tag) => {
-                        const badgeKey = tag as BadgeKey;
-                        const badge = badges[badgeKey];
+                <Flex justifyContent='space-between' alignItems='flex-start'>
+                    <Flex flexDirection={['column']} gap={['2px', '2px', '2px', '3px', '3px']}>
+                        {subcategory?.map((tag) => {
+                            const badgeKey = tag as BadgeKey;
+                            const badge = badges[badgeKey];
 
-                        if (!badge) return null;
+                            if (!badge) return null;
 
-                        return (
-                            <Badge
-                                key={tag}
-                                position={is768 ? 'absolute' : 'relative'}
-                                top={is768 ? '8px' : '0'}
-                                left={is768 ? '8px' : '0'}
-                                bg='customLime.50'
-                                borderRadius='4px'
-                                px={['4px', '4px', '4px', '8px', '8px']}
-                                py='2px'
-                                alignItems='center'
-                                display='flex'
-                                gap={['2px', '2px', '2px', '8px', '8px']}
-                                textTransform='none'
-                                fontSize='14px'
-                                fontWeight='400'
-                            >
-                                <Image src={badge.icon} alt='tag' />
-                                {badge.name}
-                            </Badge>
-                        );
-                    })}
+                            return (
+                                <Tag
+                                    key={tag}
+                                    position={is768 ? 'absolute' : 'relative'}
+                                    top={is768 ? '8px' : '0'}
+                                    left={is768 ? '8px' : '0'}
+                                    bg='customLime.50'
+                                    gap={['2px', '2px', '2px', '8px', '8px']}
+                                    fontSize='14px'
+                                    fontWeight='400'
+                                    cursor='pointer'
+                                >
+                                    <Image w='16px' h='16px' src={badge.icon} alt='tag' />
+                                    <Text fontSize='14px' fontWeight='400'>
+                                        {badge.name}
+                                    </Text>
+                                </Tag>
+                            );
+                        })}
+                    </Flex>
                     <Flex gap='20px'>
                         <Flex key={bookmarks} alignItems='center' gap='6px'>
                             <Image src={bookmark} alt='bookmark' />

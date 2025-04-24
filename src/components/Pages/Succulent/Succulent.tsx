@@ -1,5 +1,6 @@
 import { Button, Flex, Text } from '@chakra-ui/react';
 
+import { sliderMockData } from '~/components/Dummies/NewRecipe/constants';
 import RelevantKitchen from '~/components/Dummies/RelevantKitchen/RelevantKitchen';
 import { searchMainPageMockData } from '~/components/Dummies/SearchMainPage/constants';
 import SearchMainPage from '~/components/Dummies/SearchMainPage/SearchMainPage';
@@ -8,7 +9,6 @@ import SucculentCards from '~/components/Dummies/SucculentCards/SucculentCards';
 import {
     relevantKitchenMockData,
     relevantKitchenTitleDescriptionMockData,
-    succulentCardsMockData,
     veganCuisineListCardMockData,
 } from './constant';
 
@@ -31,15 +31,17 @@ const Succulent = () => (
                 justifyContent='space-between'
                 gap={['11px', '11px', '16px', '14px', '14px']}
             >
-                {succulentCardsMockData.map((item) => (
+                {sliderMockData.map((item) => (
                     <SucculentCards
                         key={item.id + item.title}
                         id={String(item.id)}
                         image={item.image}
                         title={item.title}
                         description={item.description}
-                        tags={item.tags}
-                        actives={item.actives}
+                        category={item.category}
+                        subcategory={item.subcategory}
+                        bookmarks={item.bookmarks}
+                        likes={item.likes}
                         width={[
                             'calc(50% - 12px)',
                             '100%',

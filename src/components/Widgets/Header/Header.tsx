@@ -48,9 +48,9 @@ export const Header = () => {
             bg={isOpen ? 'white' : 'customLime.50'}
             h={['64px', '64px', '64px', '80px', '80px', '80px']}
             w='100%'
-            position='sticky'
-            top={0}
-            zIndex={9999}
+            // position='sticky'
+            // top={0}
+            // zIndex={9999}
             pr={['32px', '32px', '32px', '80px', '80px', '80px']}
         >
             <Flex
@@ -59,7 +59,7 @@ export const Header = () => {
                 justifyContent='space-between'
                 pl={['16px', '16px', '16px', '20px', '16px', '16px']}
                 position='relative'
-                zIndex={9999}
+                // zIndex={9999}
             >
                 <Flex alignItems='center' gap='128px'>
                     <Image src={logoYeedaa} alt='logo' />

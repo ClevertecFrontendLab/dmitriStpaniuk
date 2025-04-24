@@ -3,6 +3,9 @@ import { Flex, IconButton, Text, useBreakpointValue } from '@chakra-ui/react';
 import { FC, useRef } from 'react';
 import { Swiper as SwiperType } from 'swiper';
 
+import { selectedAllergensSelector } from '~/store/app-slice';
+import { useAppSelector } from '~/store/hooks';
+
 import NewRecipeCard from '../NewRecipeCard/NewRecipeCard';
 import { SwiperComponent } from '../Swiper/Swiper';
 import { sliderMockData } from './constants';
@@ -19,7 +22,17 @@ export const NewRecipe: FC = () => {
 
     const swiperRef = useRef<SwiperType | null>(null);
 
+    const selectedAllergens = useAppSelector(selectedAllergensSelector);
+
     const slides = [...sliderMockData]
+        .filter((item) =>
+            selectedAllergens.every(
+                (allergen) =>
+                    !item.ingredients.some(
+                        (ingredient) => ingredient.title === allergen.name.toLowerCase(),
+                    ),
+            ),
+        )
         .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
         .map((item) => (
             <NewRecipeCard

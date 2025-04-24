@@ -1,6 +1,11 @@
 import { SearchIcon } from '@chakra-ui/icons';
 import {
     Box,
+    Drawer,
+    DrawerBody,
+    DrawerCloseButton,
+    DrawerContent,
+    DrawerOverlay,
     Flex,
     FormControl,
     FormLabel,
@@ -13,15 +18,18 @@ import {
     Switch,
     Text,
     useBreakpointValue,
+    useDisclosure,
 } from '@chakra-ui/react';
 import { useState } from 'react';
 
 import button from '~/assets/svg/main/button.svg';
 
+import Filter from '../Filter/Filter';
 import AllergensSelect from './AllergensSelect';
 
 const SearchMainPage = ({ data }: { data: { title: string; description: string } }) => {
     const [isAllergensEnabled, setIsAllergensEnabled] = useState(false);
+    const { isOpen, onOpen, onClose } = useDisclosure();
 
     const showFooter = useBreakpointValue({
         base: false,
@@ -85,6 +93,7 @@ const SearchMainPage = ({ data }: { data: { title: string; description: string }
                         src={button}
                         alt='button'
                         cursor='pointer'
+                        onClick={onOpen}
                     />
                     <InputGroup size={['sm', 'sm', 'sm', 'lg']}>
                         <Input
@@ -140,6 +149,28 @@ const SearchMainPage = ({ data }: { data: { title: string; description: string }
                     </Flex>
                 )}
             </Box>
+
+            <Drawer
+                isOpen={isOpen}
+                placement='right'
+                onClose={onClose}
+                size='md'
+                blockScrollOnMount={false}
+            >
+                <DrawerOverlay />
+                <DrawerContent
+                    position='absolute'
+                    top='0'
+                    right='0'
+                    h='100vh'
+                    boxShadow='-4px 0 8px rgba(0, 0, 0, 0.1)'
+                >
+                    <DrawerCloseButton top='20px' />
+                    <DrawerBody p={0}>
+                        <Filter />
+                    </DrawerBody>
+                </DrawerContent>
+            </Drawer>
         </Flex>
     );
 };

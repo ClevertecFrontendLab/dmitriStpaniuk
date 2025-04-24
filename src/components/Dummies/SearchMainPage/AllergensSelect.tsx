@@ -12,7 +12,10 @@ import {
     Tag,
     TagLabel,
 } from '@chakra-ui/react';
-import { useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
+
+import { setSelectedAllergens } from '~/store/app-slice';
+import { useAppDispatch } from '~/store/hooks';
 
 interface Allergen {
     id: number;
@@ -38,10 +41,16 @@ interface AllergensSelectProps {
 }
 
 const AllergensSelect = ({ isEnabled }: AllergensSelectProps) => {
+    const dispatch = useAppDispatch();
     const [allergens, setAllergens] = useState<Allergen[]>(initialAllergens);
     const [customAllergens, setCustomAllergens] = useState<Allergen[]>([]);
     const [inputValue, setInputValue] = useState('');
     const menuRef = useRef<HTMLDivElement>(null);
+
+    const selectedAllergens = useMemo(
+        () => [...allergens.filter((allergen) => allergen.checked), ...customAllergens],
+        [allergens, customAllergens],
+    );
 
     const handleCheckboxChange = (id: number) => {
         setAllergens((prevAllergens) =>
@@ -73,10 +82,18 @@ const AllergensSelect = ({ isEnabled }: AllergensSelectProps) => {
         setCustomAllergens([]);
     };
 
-    const selectedAllergens = [
-        ...allergens.filter((allergen) => allergen.checked),
-        ...customAllergens,
-    ];
+    useEffect(() => {
+        dispatch(setSelectedAllergens(selectedAllergens));
+    }, [selectedAllergens, dispatch]);
+
+    useEffect(() => {
+        if (!isEnabled) {
+            setAllergens((prevAllergens) =>
+                prevAllergens.map((allergen) => ({ ...allergen, checked: false })),
+            );
+            setCustomAllergens([]);
+        }
+    }, [isEnabled]);
 
     return (
         <Box position='relative' w='100%' ref={menuRef}>
