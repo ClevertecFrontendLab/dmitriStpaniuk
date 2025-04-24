@@ -11,6 +11,7 @@ import {
     MenuList,
     Tag,
     TagLabel,
+    Text,
 } from '@chakra-ui/react';
 import { useEffect, useMemo, useRef, useState } from 'react';
 
@@ -191,7 +192,7 @@ const AllergensSelect = ({ isEnabled }: AllergensSelectProps) => {
                                             handleCheckboxChange(allergen.id);
                                         }}
                                     >
-                                        {allergen.name}
+                                        <Text color='blackAlpha.700'>{allergen.name}</Text>
                                     </Checkbox>
                                 </MenuItem>
                             ))}

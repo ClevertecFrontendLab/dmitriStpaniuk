@@ -1,4 +1,4 @@
-import { ChevronDownIcon, CloseIcon } from '@chakra-ui/icons';
+import { ChevronDownIcon } from '@chakra-ui/icons';
 import {
     Box,
     Button,
@@ -144,7 +144,7 @@ const Filter = () => {
         <Flex direction='column' h='100vh'>
             <Box p={4} flex='1' overflowY='hidden'>
                 <Flex justify='space-between' align='center' mb={4}>
-                    <Text fontSize='xl' fontWeight='bold'>
+                    <Text fontSize='24px' fontWeight='bold'>
                         Фильтр
                     </Text>
                 </Flex>
@@ -161,9 +161,9 @@ const Filter = () => {
                                 borderWidth='1px'
                                 _hover={{ bg: 'gray.50' }}
                             >
-                                Категория
+                                <Text color='blackAlpha.700'>Категория</Text>
                             </MenuButton>
-                            <MenuList maxH='300px' overflowY='auto'>
+                            <MenuList minW='247%'>
                                 {categoryFilters.map((category, index) => (
                                     <MenuItem
                                         key={category.id}
@@ -172,6 +172,21 @@ const Filter = () => {
                                         _hover={{ bg: index % 2 === 0 ? 'gray.100' : 'gray.50' }}
                                     >
                                         <Checkbox
+                                            sx={{
+                                                '.chakra-checkbox__control': {
+                                                    borderColor: 'customLime.400',
+                                                    borderRadius: '2px',
+                                                    _checked: {
+                                                        bg: '#b1ff2e',
+                                                        borderColor: '#b1ff2e',
+                                                        color: 'black',
+                                                        _hover: {
+                                                            bg: '#b1ff2e',
+                                                            borderColor: '#b1ff2e',
+                                                        },
+                                                    },
+                                                },
+                                            }}
                                             isChecked={category.checked}
                                             onChange={(e) => {
                                                 e.stopPropagation();
@@ -197,9 +212,9 @@ const Filter = () => {
                                 borderWidth='1px'
                                 _hover={{ bg: 'gray.50' }}
                             >
-                                Поиск по автору
+                                <Text color='blackAlpha.700'>Поиск по автору</Text>
                             </MenuButton>
-                            <MenuList maxH='300px' overflowY='auto'>
+                            <MenuList minW='156%'>
                                 {authorFilters.map((author, index) => (
                                     <MenuItem
                                         key={author.id}
@@ -208,6 +223,21 @@ const Filter = () => {
                                         _hover={{ bg: index % 2 === 0 ? 'gray.100' : 'gray.50' }}
                                     >
                                         <Checkbox
+                                            sx={{
+                                                '.chakra-checkbox__control': {
+                                                    borderColor: 'customLime.400',
+                                                    borderRadius: '2px',
+                                                    _checked: {
+                                                        bg: '#b1ff2e',
+                                                        borderColor: '#b1ff2e',
+                                                        color: 'black',
+                                                        _hover: {
+                                                            bg: '#b1ff2e',
+                                                            borderColor: '#b1ff2e',
+                                                        },
+                                                    },
+                                                },
+                                            }}
                                             isChecked={author.checked}
                                             onChange={(e) => {
                                                 e.stopPropagation();
@@ -232,8 +262,26 @@ const Filter = () => {
                                     key={meat.id}
                                     isChecked={meat.checked}
                                     onChange={() => handleMeatTypeChange(meat.id)}
+                                    border='1px solid customLime.400'
+                                    sx={{
+                                        '.chakra-checkbox__control': {
+                                            borderColor: 'customLime.400',
+                                            borderRadius: '2px',
+                                            _checked: {
+                                                bg: '#b1ff2e',
+                                                borderColor: '#b1ff2e',
+                                                color: 'black',
+                                                _hover: {
+                                                    bg: '#b1ff2e',
+                                                    borderColor: '#b1ff2e',
+                                                },
+                                            },
+                                        },
+                                    }}
                                 >
-                                    {meat.label}
+                                    <Text fontSize='16px' fontWeight='500'>
+                                        {meat.label}
+                                    </Text>
                                 </Checkbox>
                             ))}
                         </Stack>
@@ -249,8 +297,25 @@ const Filter = () => {
                                     key={side.id}
                                     isChecked={side.checked}
                                     onChange={() => handleSideTypeChange(side.id)}
+                                    sx={{
+                                        '.chakra-checkbox__control': {
+                                            borderColor: 'customLime.400',
+                                            borderRadius: '2px',
+                                            _checked: {
+                                                bg: '#b1ff2e',
+                                                borderColor: '#b1ff2e',
+                                                color: 'black',
+                                                _hover: {
+                                                    bg: '#b1ff2e',
+                                                    borderColor: '#b1ff2e',
+                                                },
+                                            },
+                                        },
+                                    }}
                                 >
-                                    {side.label}
+                                    <Text fontSize='16px' fontWeight='500'>
+                                        {side.label}
+                                    </Text>
                                 </Checkbox>
                             ))}
                         </Stack>
@@ -262,7 +327,14 @@ const Filter = () => {
                             <Switch
                                 isChecked={isAllergensEnabled}
                                 onChange={() => setIsAllergensEnabled(!isAllergensEnabled)}
-                                colorScheme='green'
+                                sx={{
+                                    '& span[data-checked]': {
+                                        backgroundColor: '#b1ff2e !important',
+                                    },
+                                    '& span[data-checked] span': {
+                                        backgroundColor: 'white !important',
+                                    },
+                                }}
                             />
                         </Flex>
                         <Box mt={2}>
@@ -279,12 +351,14 @@ const Filter = () => {
                             <Tag
                                 key={item.id}
                                 size='md'
-                                borderRadius='full'
+                                borderRadius='6px'
                                 variant='solid'
-                                bg='customLime.400'
+                                bg='#eaffc7'
+                                border='1px solid #b1ff2e'
                             >
-                                <TagLabel>{getItemLabel(item)}</TagLabel>
+                                <TagLabel color='#207e00'>{getItemLabel(item)}</TagLabel>
                                 <TagCloseButton
+                                    color='#207e00'
                                     onClick={() => {
                                         if ('name' in item) {
                                             handleAuthorChange(item.id);
@@ -305,24 +379,23 @@ const Filter = () => {
                 </Box>
             )}
 
-            <Box p={4} borderTop='1px' borderColor='gray.200'>
+            <Flex p={4} justifyContent='center'>
                 <Flex gap={4}>
-                    {hasActiveFilters() && (
-                        <Button
-                            // variant='ghost'
-                            onClick={handleClearAll}
-                            leftIcon={<CloseIcon />}
-                            alignSelf='center'
-                            color='gray.500'
-                        >
-                            Очистить фильтр
-                        </Button>
-                    )}
+                    <Button
+                        onClick={handleClearAll}
+                        bg='white'
+                        alignSelf='center'
+                        color='black'
+                        border='1px solid black'
+                    >
+                        Очистить фильтр
+                    </Button>
+
                     <Button
                         // w='full'
                         colorScheme='green'
-                        bg='customLime.400'
-                        color='black'
+                        bg='black'
+                        color='white'
                         _hover={{ bg: 'customLime.500' }}
                         isDisabled={!hasActiveFilters()}
                         _disabled={{
@@ -334,7 +407,7 @@ const Filter = () => {
                         Найти рецепт
                     </Button>
                 </Flex>
-            </Box>
+            </Flex>
         </Flex>
     );
 };

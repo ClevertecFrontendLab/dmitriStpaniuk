@@ -159,13 +159,27 @@ const SearchMainPage = ({ data }: { data: { title: string; description: string }
             >
                 <DrawerOverlay />
                 <DrawerContent
+                    w='463px'
                     position='absolute'
                     top='0'
                     right='0'
                     h='100vh'
                     boxShadow='-4px 0 8px rgba(0, 0, 0, 0.1)'
+                    sx={{
+                        width: '463px !important',
+                        maxWidth: '463px !important',
+                    }}
                 >
-                    <DrawerCloseButton top='20px' />
+                    <DrawerCloseButton
+                        top='20px'
+                        right='24px'
+                        size='sm'
+                        color='white'
+                        _hover={{ opacity: 0.7 }}
+                        border='1px solid black'
+                        backgroundColor='black'
+                        borderRadius='50%'
+                    />
                     <DrawerBody p={0}>
                         <Filter />
                     </DrawerBody>
