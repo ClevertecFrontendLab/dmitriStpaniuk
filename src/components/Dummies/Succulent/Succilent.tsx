@@ -2,12 +2,15 @@ import { ArrowForwardIcon } from '@chakra-ui/icons';
 import { Button, Flex, Text, useBreakpointValue } from '@chakra-ui/react';
 import { Link, useLocation } from 'react-router';
 
-import { sliderMockData } from '../NewRecipe/constants';
+import { filteredRecipesSelector } from '~/store/app-slice';
+import { useAppSelector } from '~/store/hooks';
+
 import SucculentCards from '../SucculentCards/SucculentCards';
 
 export const Succulent = () => {
     const location = useLocation();
     const isSucculentPage = location.pathname === '/succulent';
+    const recipes = useAppSelector(filteredRecipesSelector);
     const isMobile = useBreakpointValue({
         base: true,
         sm: true,
@@ -16,7 +19,7 @@ export const Succulent = () => {
         xl: false,
         '2xl': false,
     });
-    const displayedCards = isSucculentPage ? sliderMockData : sliderMockData.slice(0, 4);
+    const displayedCards = isSucculentPage ? recipes : recipes.slice(0, 4);
     return (
         <Flex flexDirection='column' alignItems='flex-start' position='relative' mt='30px'>
             <Text
@@ -68,6 +71,7 @@ export const Succulent = () => {
             <Flex flexWrap='wrap' gap={['11px', '11px', '16px', '14px', '24px']}>
                 {displayedCards.map((item) => (
                     <SucculentCards
+                        data-test-id={`food-card-${item.id}`}
                         key={item.id + item.title}
                         id={String(item.id)}
                         image={item.image}

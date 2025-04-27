@@ -15,4 +15,5 @@ export type SliderMockData = {
     steps: { stepNumber: number; description: string; image: string }[];
     meat: string;
     side: string;
+    author: string;
 };

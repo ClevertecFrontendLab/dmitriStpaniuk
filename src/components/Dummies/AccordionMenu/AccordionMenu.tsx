@@ -17,9 +17,10 @@ import { defaultIndex } from './useAccordionMenu';
 
 interface AccordionMenuProps {
     onPageChange: (path: string) => void;
+    onClose: () => void;
 }
 
-export const AccordionMenu: FC<AccordionMenuProps> = ({ onPageChange }) => {
+export const AccordionMenu: FC<AccordionMenuProps> = ({ onPageChange, onClose }) => {
     const handleSubItemClick = (parentHref: string, subItemHref: string) => {
         const parentName = parentHref.replace(/^\//, '');
         const subItemName = subItemHref.replace(/^\//, '');
@@ -85,7 +86,11 @@ export const AccordionMenu: FC<AccordionMenuProps> = ({ onPageChange }) => {
                 allowToggle
             >
                 {menuMockData.map((item) => (
-                    <AccordionItem key={item.id + item.label} border='none'>
+                    <AccordionItem
+                        key={item.id + item.label}
+                        border='none'
+                        data-test-id={`${item.label}`}
+                    >
                         <h2>
                             <AccordionButton
                                 onClick={() => {
@@ -130,6 +135,7 @@ export const AccordionMenu: FC<AccordionMenuProps> = ({ onPageChange }) => {
                                         whiteSpace='nowrap'
                                         onClick={() => {
                                             handleSubItemClick(item.href, subItem.href);
+                                            onClose();
                                         }}
                                         bg='transparent'
                                         _hover={{
@@ -154,6 +160,7 @@ export const AccordionMenu: FC<AccordionMenuProps> = ({ onPageChange }) => {
                                             }
                                         />
                                         <Box
+                                            data-test-id={`${subItem.label}-active`}
                                             className='decorator-active'
                                             w='8px'
                                             h='28px'

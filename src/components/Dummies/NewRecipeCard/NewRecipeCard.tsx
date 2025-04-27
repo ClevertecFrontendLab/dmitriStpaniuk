@@ -1,5 +1,9 @@
 import { Box, Flex, Image, Tag, Text, useBreakpointValue } from '@chakra-ui/react';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
+
+import { filtersSelector } from '~/store/app-slice';
+import { highlightMatch } from '~/utils/highlightMatch';
 
 import BookmarksLikes from '../BookmarksLikes/BookmarksLikes';
 import { badges } from '../NewRecipe/constants';
@@ -42,6 +46,7 @@ const NewRecipeCard = ({
         xl: false,
         '2xl': false,
     });
+    const filters = useSelector(filtersSelector);
 
     const handleCardClick = () => {
         const mainCategory = category[0] || 'recipes';
@@ -72,7 +77,6 @@ const NewRecipeCard = ({
                 flexDirection='column'
                 alignItems='flex-start'
                 p={['8px 8px 4px', '8px 8px 4px', '8px 8px 4px', '12px', '16px 24px 20px']}
-                position='relative'
                 h='100%'
             >
                 <Flex flexDirection='column' alignItems='flex-start' gap='8px' w='100%'>
@@ -83,7 +87,7 @@ const NewRecipeCard = ({
                         noOfLines={[2, 2, 2, 1, 1]}
                         textAlign='left'
                     >
-                        {title}
+                        {highlightMatch(title, filters.searchQuery)}
                     </Text>
                     <Text
                         fontSize='14px'
@@ -110,6 +114,9 @@ const NewRecipeCard = ({
                         gap='5px'
                         alignContent='flex-start'
                         alignItems='flex-start'
+                        position={absoluteBadge ? 'absolute' : 'relative'}
+                        top={absoluteBadge ? '8px' : 'auto'}
+                        left={absoluteBadge ? '8px' : 'auto'}
                     >
                         {category.map((tag) => (
                             <Tag
@@ -119,9 +126,6 @@ const NewRecipeCard = ({
                                 fontSize='14px'
                                 fontWeight='400'
                                 gap={['2px', '2px', '2px', '8px', '8px']}
-                                position={absoluteBadge ? 'absolute' : 'relative'}
-                                top={absoluteBadge ? ['8px', '8px', '8px', '8px', '8px'] : 'auto'}
-                                left={absoluteBadge ? ['8px', '8px', '8px', '8px', '8px'] : 'auto'}
                             >
                                 <Image
                                     src={badges[tag as keyof typeof badges].icon}
@@ -133,6 +137,7 @@ const NewRecipeCard = ({
                                     fontFamily='heading'
                                     fontSize={['12px', '14px', '14px', '14px', '14px']}
                                     fontWeight='400'
+                                    textAlign='left'
                                 >
                                     {badges[tag as keyof typeof badges].name}
                                 </Text>

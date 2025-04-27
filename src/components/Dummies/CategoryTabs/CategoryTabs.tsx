@@ -80,6 +80,7 @@ const CategoryTabs = ({
                         const isActive = location.pathname === `${parentHref}${tab.href}`;
                         return (
                             <Tab
+                                data-test-id={`tab-${tab.label}-${tab.id}`}
                                 onClick={() => {
                                     const tabId = tab.href.split('/').pop();
                                     navigate(`${parentHref}/${tabId}`, { replace: true });

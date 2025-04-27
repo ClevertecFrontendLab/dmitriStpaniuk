@@ -3,12 +3,11 @@ import { Flex, IconButton, Text, useBreakpointValue } from '@chakra-ui/react';
 import { FC, useRef } from 'react';
 import { Swiper as SwiperType } from 'swiper';
 
-import { selectedAllergensSelector } from '~/store/app-slice';
+import { filteredRecipesSelector } from '~/store/app-slice';
 import { useAppSelector } from '~/store/hooks';
 
 import NewRecipeCard from '../NewRecipeCard/NewRecipeCard';
 import { SwiperComponent } from '../Swiper/Swiper';
-import { sliderMockData } from './constants';
 
 export const NewRecipe: FC = () => {
     const isMobile = useBreakpointValue({
@@ -22,17 +21,9 @@ export const NewRecipe: FC = () => {
 
     const swiperRef = useRef<SwiperType | null>(null);
 
-    const selectedAllergens = useAppSelector(selectedAllergensSelector);
+    const recipes = useAppSelector(filteredRecipesSelector);
 
-    const slides = [...sliderMockData]
-        .filter((item) =>
-            selectedAllergens.every(
-                (allergen) =>
-                    !item.ingredients.some(
-                        (ingredient) => ingredient.title === allergen.name.toLowerCase(),
-                    ),
-            ),
-        )
+    const slides = [...recipes]
         .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
         .map((item) => (
             <NewRecipeCard
@@ -77,7 +68,9 @@ export const NewRecipe: FC = () => {
                 {isMobile && (
                     <IconButton
                         aria-label='Previous slide'
-                        icon={<ArrowBackIcon color='white' boxSize={8} />}
+                        icon={
+                            <ArrowBackIcon data-test-id='carousel-back' color='white' boxSize={8} />
+                        }
                         position='absolute'
                         left='-10px'
                         top='46%'
@@ -117,7 +110,13 @@ export const NewRecipe: FC = () => {
                 {isMobile && (
                     <IconButton
                         aria-label='Next slide'
-                        icon={<ArrowForwardIcon color='white' boxSize={8} />}
+                        icon={
+                            <ArrowForwardIcon
+                                data-test-id='carousel-forward'
+                                color='white'
+                                boxSize={8}
+                            />
+                        }
                         position='absolute'
                         right='-10px'
                         top='45%'

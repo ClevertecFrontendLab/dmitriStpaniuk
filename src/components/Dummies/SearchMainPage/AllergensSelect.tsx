@@ -102,6 +102,7 @@ const AllergensSelect = ({ isEnabled }: AllergensSelectProps) => {
                 {({ isOpen: _isOpen }) => (
                     <>
                         <MenuButton
+                            data-test-id='allergens-menu-button'
                             as={Button}
                             rightIcon={
                                 selectedAllergens.length > 0 ? (
@@ -160,7 +161,13 @@ const AllergensSelect = ({ isEnabled }: AllergensSelectProps) => {
                                 )}
                             </Flex>
                         </MenuButton>
-                        <MenuList zIndex={1500} position='relative' w='82%' maxW='100%'>
+                        <MenuList
+                            zIndex={1500}
+                            position='relative'
+                            w='82%'
+                            maxW='100%'
+                            data-test-id='allergens-menu'
+                        >
                             {allergens.map((allergen, index) => (
                                 <MenuItem
                                     key={allergen.id}
@@ -169,6 +176,7 @@ const AllergensSelect = ({ isEnabled }: AllergensSelectProps) => {
                                     _hover={{ bg: index % 2 === 0 ? 'gray.100' : 'gray.50' }}
                                 >
                                     <Checkbox
+                                        data-test-id={`allergen-${index}`}
                                         isChecked={allergen.checked}
                                         size='md'
                                         w='100%'
@@ -199,6 +207,7 @@ const AllergensSelect = ({ isEnabled }: AllergensSelectProps) => {
                             <Box p={3} borderTop='1px' borderColor='gray.200'>
                                 <Flex gap={2}>
                                     <Input
+                                        data-test-id='add-other-allergen'
                                         placeholder='Добавить свой аллерген'
                                         value={inputValue}
                                         onChange={(e) => setInputValue(e.target.value)}
@@ -218,6 +227,7 @@ const AllergensSelect = ({ isEnabled }: AllergensSelectProps) => {
                                         }}
                                         colorScheme='green'
                                         variant='ghost'
+                                        data-test-id='add-allergen-button'
                                     >
                                         <AddIcon />
                                     </Button>

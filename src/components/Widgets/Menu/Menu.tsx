@@ -5,7 +5,11 @@ import { AccordionMenu } from '~/components/Dummies/AccordionMenu/AccordionMenu'
 
 import { LeftFooter } from '../Footer/LeftFooter';
 
-export const Menu = () => {
+interface MenuProps {
+    onClose: () => void;
+}
+
+export const Menu = ({ onClose }: MenuProps) => {
     const navigate = useNavigate();
 
     const handlePageChange = (path: string) => {
@@ -27,7 +31,7 @@ export const Menu = () => {
                 '1px 0px 0px 0px rgba(0, 0, 0, 0.1)',
             ]}
         >
-            <AccordionMenu onPageChange={handlePageChange} />
+            <AccordionMenu onPageChange={handlePageChange} onClose={onClose} />
             <LeftFooter />
         </Flex>
     );

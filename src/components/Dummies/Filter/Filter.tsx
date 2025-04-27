@@ -15,134 +15,168 @@ import {
     TagLabel,
     Text,
 } from '@chakra-ui/react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
-import { menuMockData } from '../AccordionMenu/constants';
+import { useFilters } from '~/store/hooks';
+
 import AllergensSelect from '../SearchMainPage/AllergensSelect';
+import { authors, categories, meatTypes, sideTypes } from './constants';
 
-interface FilterOption {
-    id: string;
-    label: string;
-    checked: boolean;
-}
-
-interface Author {
-    id: string;
-    name: string;
-    checked: boolean;
-}
-
-const authors: Author[] = [
-    { id: '1', name: 'Елена Мин', checked: false },
-    { id: '2', name: 'Мирием Чоншвили', checked: false },
-    { id: '3', name: 'Елена Прекрасная', checked: false },
-    { id: '4', name: 'Alex Cook', checked: false },
-    { id: '5', name: 'Екатерина Константинопольская', checked: false },
-    { id: '6', name: 'Инна Высоцкая', checked: false },
-    { id: '7', name: 'Сергей Разумов', checked: false },
-    { id: '8', name: 'Анна Рогачева', checked: false },
-    { id: '9', name: 'Иван Орлов', checked: false },
-    { id: '10', name: 'Повар Ши', checked: false },
-    { id: '11', name: 'Только новые авторы', checked: false },
-];
-
-const meatTypes: FilterOption[] = [
-    { id: 'chicken', label: 'Курица', checked: false },
-    { id: 'pork', label: 'Свинина', checked: false },
-    { id: 'beef', label: 'Говядина', checked: false },
-    { id: 'turkey', label: 'Индейка', checked: false },
-    { id: 'duck', label: 'Утка', checked: false },
-];
-
-const sideTypes: FilterOption[] = [
-    { id: 'potato', label: 'Картошка', checked: false },
-    { id: 'buckwheat', label: 'Гречка', checked: false },
-    { id: 'pasta', label: 'Паста', checked: false },
-    { id: 'spaghetti', label: 'Спагетти', checked: false },
-    { id: 'rice', label: 'Рис', checked: false },
-    { id: 'cabbage', label: 'Капуста', checked: false },
-    { id: 'beans', label: 'Фасоль', checked: false },
-    { id: 'other', label: 'Другие овощи', checked: false },
-];
-
-const categories = menuMockData.map((category) => ({
-    id: category.id.toString(),
+const categoriesOptions = categories.map((category) => ({
+    id: category.id,
     label: category.label,
     checked: false,
+    dataTestId: category.dataTestId,
 }));
 
 const Filter = () => {
-    const [categoryFilters, setCategoryFilters] = useState(categories);
-    const [authorFilters, setAuthorFilters] = useState(authors);
-    const [meatFilters, setMeatFilters] = useState(meatTypes);
-    const [sideFilters, setSideFilters] = useState(sideTypes);
+    const [categoryFilters, setCategoryFilters] = useState<string[]>([]);
+    const [authorFilters, setAuthorFilters] = useState<string[]>([]);
+    const [meatFilters, setMeatFilters] = useState<string[]>([]);
+    const [sideFilters, setSideFilters] = useState<string[]>([]);
     const [isAllergensEnabled, setIsAllergensEnabled] = useState(false);
+    const {
+        filters,
+        handleCategoriesChange,
+        handleAuthorsChange,
+        handleMeatTypesChange,
+        handleSideTypesChange,
+        handleAllergensEnabledChange,
+    } = useFilters();
+
+    useEffect(() => {
+        handleCategoriesChange(categoryFilters);
+        handleAuthorsChange(authorFilters);
+        handleMeatTypesChange(meatFilters);
+        handleSideTypesChange(sideFilters);
+        handleAllergensEnabledChange(isAllergensEnabled);
+    }, [
+        categoryFilters,
+        authorFilters,
+        meatFilters,
+        sideFilters,
+        isAllergensEnabled,
+        handleCategoriesChange,
+        handleAuthorsChange,
+        handleMeatTypesChange,
+        handleSideTypesChange,
+        handleAllergensEnabledChange,
+    ]);
 
     const handleCategoryChange = (id: string) => {
-        setCategoryFilters((prev) =>
-            prev.map((filter) =>
-                filter.id === id ? { ...filter, checked: !filter.checked } : filter,
-            ),
-        );
+        setCategoryFilters((prev) => {
+            if (prev.includes(id)) {
+                return prev.filter((filter) => filter !== id);
+            }
+            return [...prev, id];
+        });
     };
 
     const handleAuthorChange = (id: string) => {
-        setAuthorFilters((prev) =>
-            prev.map((author) =>
-                author.id === id ? { ...author, checked: !author.checked } : author,
-            ),
-        );
+        setAuthorFilters((prev) => {
+            if (prev.includes(id)) {
+                return prev.filter((filter) => filter !== id);
+            }
+            return [...prev, id];
+        });
     };
 
     const handleMeatTypeChange = (id: string) => {
-        setMeatFilters((prev) =>
-            prev.map((filter) =>
-                filter.id === id ? { ...filter, checked: !filter.checked } : filter,
-            ),
-        );
+        setMeatFilters((prev) => {
+            if (prev.includes(id)) {
+                return prev.filter((filter) => filter !== id);
+            }
+            return [...prev, id];
+        });
     };
 
     const handleSideTypeChange = (id: string) => {
-        setSideFilters((prev) =>
-            prev.map((filter) =>
-                filter.id === id ? { ...filter, checked: !filter.checked } : filter,
-            ),
-        );
+        setSideFilters((prev) => {
+            if (prev.includes(id)) {
+                return prev.filter((filter) => filter !== id);
+            }
+            return [...prev, id];
+        });
     };
 
     const handleClearAll = () => {
-        setCategoryFilters((prev) => prev.map((filter) => ({ ...filter, checked: false })));
-        setAuthorFilters((prev) => prev.map((author) => ({ ...author, checked: false })));
-        setMeatFilters((prev) => prev.map((filter) => ({ ...filter, checked: false })));
-        setSideFilters((prev) => prev.map((filter) => ({ ...filter, checked: false })));
+        setCategoryFilters([]);
+        setAuthorFilters([]);
+        setMeatFilters([]);
+        setSideFilters([]);
         setIsAllergensEnabled(false);
     };
 
     const hasActiveFilters = () =>
-        categoryFilters.some((f) => f.checked) ||
-        authorFilters.some((f) => f.checked) ||
-        meatFilters.some((f) => f.checked) ||
-        sideFilters.some((f) => f.checked) ||
+        categoryFilters.length > 0 ||
+        authorFilters.length > 0 ||
+        meatFilters.length > 0 ||
+        sideFilters.length > 0 ||
         isAllergensEnabled;
 
-    const getSelectedItems = <T extends { checked: boolean }>(items: T[]): T[] =>
-        items.filter((item) => item.checked);
+    //  для  фильтра ID
+    const getFilterLabel = (id: string, type: 'category' | 'author' | 'meat' | 'side'): string => {
+        let result = id;
 
-    const getItemLabel = (item: FilterOption | Author): string =>
-        'name' in item ? item.name : item.label;
+        switch (type) {
+            case 'category': {
+                const category = categories.find((c) => c.id === id);
+                result = category ? category.label : id;
+                break;
+            }
+            case 'author': {
+                const author = authors.find((a) => a.id === id);
+                result = author ? author.name : id;
+                break;
+            }
+            case 'meat': {
+                const meat = meatTypes.find((m) => m.id === id);
+                result = meat ? meat.label : id;
+                break;
+            }
+            case 'side': {
+                const side = sideTypes.find((s) => s.id === id);
+                result = side ? side.label : id;
+                break;
+            }
+        }
+
+        return result;
+    };
 
     const getAllSelectedTags = () => {
-        const categoryTags = getSelectedItems(categoryFilters);
-        const authorTags = getSelectedItems(authorFilters);
-        const meatTags = getSelectedItems(meatFilters);
-        const sideTags = getSelectedItems(sideFilters);
+        const result: {
+            id: string;
+            label: string;
+            type: 'category' | 'author' | 'meat' | 'side';
+        }[] = [];
 
-        return [...categoryTags, ...authorTags, ...meatTags, ...sideTags];
+        // категории
+        filters.categories.forEach((id) => {
+            result.push({ id, label: getFilterLabel(id, 'category'), type: 'category' });
+        });
+
+        // авторы
+        filters.authors.forEach((id) => {
+            result.push({ id, label: getFilterLabel(id, 'author'), type: 'author' });
+        });
+
+        // тип мяса
+        filters.meatTypes.forEach((id) => {
+            result.push({ id, label: getFilterLabel(id, 'meat'), type: 'meat' });
+        });
+
+        // тип гарнира
+        filters.sideTypes.forEach((id) => {
+            result.push({ id, label: getFilterLabel(id, 'side'), type: 'side' });
+        });
+
+        return result;
     };
 
     return (
-        <Flex direction='column' h='100vh'>
-            <Box p={4} flex='1' overflowY='hidden'>
+        <Flex direction='column'>
+            <Box p={4} flex='1'>
                 <Flex justify='space-between' align='center' mb={4}>
                     <Text fontSize='24px' fontWeight='bold'>
                         Фильтр
@@ -160,11 +194,12 @@ const Filter = () => {
                                 bg='white'
                                 borderWidth='1px'
                                 _hover={{ bg: 'gray.50' }}
+                                data-test-id='filter-menu-button-категория'
                             >
                                 <Text color='blackAlpha.700'>Категория</Text>
                             </MenuButton>
                             <MenuList minW='247%'>
-                                {categoryFilters.map((category, index) => (
+                                {categoriesOptions.map((category, index) => (
                                     <MenuItem
                                         key={category.id}
                                         onClick={() => handleCategoryChange(category.id)}
@@ -172,6 +207,7 @@ const Filter = () => {
                                         _hover={{ bg: index % 2 === 0 ? 'gray.100' : 'gray.50' }}
                                     >
                                         <Checkbox
+                                            data-test-id={category.dataTestId}
                                             sx={{
                                                 '.chakra-checkbox__control': {
                                                     borderColor: 'customLime.400',
@@ -187,7 +223,7 @@ const Filter = () => {
                                                     },
                                                 },
                                             }}
-                                            isChecked={category.checked}
+                                            isChecked={categoryFilters.includes(category.id)}
                                             onChange={(e) => {
                                                 e.stopPropagation();
                                                 handleCategoryChange(category.id);
@@ -215,7 +251,7 @@ const Filter = () => {
                                 <Text color='blackAlpha.700'>Поиск по автору</Text>
                             </MenuButton>
                             <MenuList minW='156%'>
-                                {authorFilters.map((author, index) => (
+                                {authors.map((author, index) => (
                                     <MenuItem
                                         key={author.id}
                                         onClick={() => handleAuthorChange(author.id)}
@@ -238,7 +274,7 @@ const Filter = () => {
                                                     },
                                                 },
                                             }}
-                                            isChecked={author.checked}
+                                            isChecked={authorFilters.includes(author.id)}
                                             onChange={(e) => {
                                                 e.stopPropagation();
                                                 handleAuthorChange(author.id);
@@ -257,10 +293,10 @@ const Filter = () => {
                             Тип мяса
                         </Text>
                         <Stack>
-                            {meatFilters.map((meat) => (
+                            {meatTypes.map((meat) => (
                                 <Checkbox
                                     key={meat.id}
-                                    isChecked={meat.checked}
+                                    isChecked={meatFilters.includes(meat.id)}
                                     onChange={() => handleMeatTypeChange(meat.id)}
                                     border='1px solid customLime.400'
                                     sx={{
@@ -292,10 +328,11 @@ const Filter = () => {
                             Тип гарнира
                         </Text>
                         <Stack>
-                            {sideFilters.map((side) => (
+                            {sideTypes.map((side) => (
                                 <Checkbox
+                                    data-test-id={side.dataTestId}
                                     key={side.id}
-                                    isChecked={side.checked}
+                                    isChecked={sideFilters.includes(side.id)}
                                     onChange={() => handleSideTypeChange(side.id)}
                                     sx={{
                                         '.chakra-checkbox__control': {
@@ -325,6 +362,7 @@ const Filter = () => {
                         <Flex align='center' gap='12px'>
                             <Text fontWeight='medium'>Исключить аллергены</Text>
                             <Switch
+                                data-test-id='allergens-switcher-filter'
                                 isChecked={isAllergensEnabled}
                                 onChange={() => setIsAllergensEnabled(!isAllergensEnabled)}
                                 sx={{
@@ -338,7 +376,10 @@ const Filter = () => {
                             />
                         </Flex>
                         <Box mt={2}>
-                            <AllergensSelect isEnabled={isAllergensEnabled} />
+                            <AllergensSelect
+                                isEnabled={isAllergensEnabled}
+                                data-test-id='allergens-menu-button-filter'
+                            />
                         </Box>
                     </Box>
                 </Stack>
@@ -349,6 +390,7 @@ const Filter = () => {
                     <Flex gap={2} flexWrap='wrap'>
                         {getAllSelectedTags().map((item) => (
                             <Tag
+                                data-test-id='filter-tag'
                                 key={item.id}
                                 size='md'
                                 borderRadius='6px'
@@ -356,20 +398,23 @@ const Filter = () => {
                                 bg='#eaffc7'
                                 border='1px solid #b1ff2e'
                             >
-                                <TagLabel color='#207e00'>{getItemLabel(item)}</TagLabel>
+                                <TagLabel color='#207e00'>{item.label}</TagLabel>
                                 <TagCloseButton
                                     color='#207e00'
                                     onClick={() => {
-                                        if ('name' in item) {
-                                            handleAuthorChange(item.id);
-                                        } else if ('label' in item) {
-                                            if (meatFilters.find((m) => m.id === item.id)) {
-                                                handleMeatTypeChange(item.id);
-                                            } else if (sideFilters.find((s) => s.id === item.id)) {
-                                                handleSideTypeChange(item.id);
-                                            } else {
+                                        switch (item.type) {
+                                            case 'category':
                                                 handleCategoryChange(item.id);
-                                            }
+                                                break;
+                                            case 'author':
+                                                handleAuthorChange(item.id);
+                                                break;
+                                            case 'meat':
+                                                handleMeatTypeChange(item.id);
+                                                break;
+                                            case 'side':
+                                                handleSideTypeChange(item.id);
+                                                break;
                                         }
                                     }}
                                 />
@@ -382,6 +427,7 @@ const Filter = () => {
             <Flex p={4} justifyContent='center'>
                 <Flex gap={4}>
                     <Button
+                        data-test-id='clear-filter-button'
                         onClick={handleClearAll}
                         bg='white'
                         alignSelf='center'
@@ -393,6 +439,7 @@ const Filter = () => {
 
                     <Button
                         // w='full'
+                        data-test-id='find-recipe-button'
                         colorScheme='green'
                         bg='black'
                         color='white'

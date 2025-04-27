@@ -20,16 +20,20 @@ import {
     useBreakpointValue,
     useDisclosure,
 } from '@chakra-ui/react';
-import { useState } from 'react';
+import { KeyboardEvent, useState } from 'react';
 
 import button from '~/assets/svg/main/button.svg';
+import { setSearchQuery } from '~/store/app-slice';
+import { useAppDispatch } from '~/store/hooks';
 
 import Filter from '../Filter/Filter';
 import AllergensSelect from './AllergensSelect';
 
 const SearchMainPage = ({ data }: { data: { title: string; description: string } }) => {
     const [isAllergensEnabled, setIsAllergensEnabled] = useState(false);
+    const [searchInput, setSearchInput] = useState('');
     const { isOpen, onOpen, onClose } = useDisclosure();
+    const dispatch = useAppDispatch();
 
     const showFooter = useBreakpointValue({
         base: false,
@@ -39,6 +43,29 @@ const SearchMainPage = ({ data }: { data: { title: string; description: string }
         xl: true,
         '2xl': true,
     });
+
+    const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = e.target.value;
+        setSearchInput(value);
+
+        if (value.length >= 3) {
+            dispatch(setSearchQuery(value));
+        } else if (value.length === 0) {
+            dispatch(setSearchQuery(''));
+        }
+    };
+
+    const handleSearch = () => {
+        if (searchInput.length >= 3) {
+            dispatch(setSearchQuery(searchInput));
+        }
+    };
+
+    const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === 'Enter' && searchInput.length >= 3) {
+            handleSearch();
+        }
+    };
 
     return (
         <Flex flexDirection='column' justifyContent='center' alignItems='center'>
@@ -89,6 +116,7 @@ const SearchMainPage = ({ data }: { data: { title: string; description: string }
                     w={['328px', '328px', '448px', '518px', '518px']}
                 >
                     <Image
+                        data-test-id='filter-button'
                         w={['32px', '32px', '32px', '48px']}
                         src={button}
                         alt='button'
@@ -97,6 +125,7 @@ const SearchMainPage = ({ data }: { data: { title: string; description: string }
                     />
                     <InputGroup size={['sm', 'sm', 'sm', 'lg']}>
                         <Input
+                            data-test-id='search-input'
                             type='search'
                             placeholder='Название или ингредиент...'
                             borderColor='blackAlpha.300'
@@ -105,9 +134,19 @@ const SearchMainPage = ({ data }: { data: { title: string; description: string }
                                 boxShadow: 'none',
                                 borderColor: 'blackAlpha.300',
                             }}
+                            value={searchInput}
+                            onChange={handleSearchChange}
+                            onKeyDown={handleKeyDown}
                         />
-                        <InputRightElement width='4.5rem' cursor='pointer'>
-                            <SearchIcon color='gray.400' />
+                        <InputRightElement
+                            width='4.5rem'
+                            cursor={searchInput.length >= 3 ? 'pointer' : 'default'}
+                            onClick={searchInput.length >= 3 ? handleSearch : undefined}
+                        >
+                            <SearchIcon
+                                data-test-id='search-button'
+                                color={searchInput.length >= 3 ? 'green.500' : 'gray.400'}
+                            />
                         </InputRightElement>
                     </InputGroup>
                 </Stack>
@@ -130,6 +169,7 @@ const SearchMainPage = ({ data }: { data: { title: string; description: string }
                                 Исключить мои аллергены
                             </FormLabel>
                             <Switch
+                                data-test-id='allergens-switcher'
                                 id='allergies'
                                 sx={{
                                     '& span[data-checked]': {
@@ -151,6 +191,7 @@ const SearchMainPage = ({ data }: { data: { title: string; description: string }
             </Box>
 
             <Drawer
+                data-test-id='filter-drawer'
                 isOpen={isOpen}
                 placement='right'
                 onClose={onClose}
@@ -159,18 +200,19 @@ const SearchMainPage = ({ data }: { data: { title: string; description: string }
             >
                 <DrawerOverlay />
                 <DrawerContent
-                    w='463px'
+                    // w={['263px', '263px', '463px', '463px', '463px']}
                     position='absolute'
                     top='0'
                     right='0'
                     h='100vh'
                     boxShadow='-4px 0 8px rgba(0, 0, 0, 0.1)'
                     sx={{
-                        width: '463px !important',
-                        maxWidth: '463px !important',
+                        width: ['360px', '360px', '463px', '463px', '463px'],
+                        maxWidth: ['360px', '360px', '463px', '463px', '463px'],
                     }}
                 >
                     <DrawerCloseButton
+                        data-test-id='close-filter-drawer'
                         top='20px'
                         right='24px'
                         size='sm'
@@ -180,7 +222,7 @@ const SearchMainPage = ({ data }: { data: { title: string; description: string }
                         backgroundColor='black'
                         borderRadius='50%'
                     />
-                    <DrawerBody p={0}>
+                    <DrawerBody>
                         <Filter />
                     </DrawerBody>
                 </DrawerContent>

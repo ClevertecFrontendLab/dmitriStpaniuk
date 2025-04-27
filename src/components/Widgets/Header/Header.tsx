@@ -63,7 +63,7 @@ export const Header = () => {
             >
                 <Flex alignItems='center' gap='128px'>
                     <Image src={logoYeedaa} alt='logo' />
-                    {!showMobileMenu && <Breadcrumbs />}
+                    {!showMobileMenu && <Breadcrumbs onClose={onClose} />}
                 </Flex>
                 {showMobileMenu ? (
                     <Flex>
@@ -71,7 +71,27 @@ export const Header = () => {
                         <IconButton
                             ml={['32px', '32px', '45px']}
                             aria-label='menu'
-                            icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
+                            variant='unstyled'
+                            _focus={{ boxShadow: 'none' }}
+                            _active={{ bg: 'transparent' }}
+                            _hover={{ bg: 'transparent' }}
+                            icon={
+                                isOpen ? (
+                                    <CloseIcon
+                                        data-test-id='close-icon'
+                                        w='14px'
+                                        h='14px'
+                                        color='black'
+                                    />
+                                ) : (
+                                    <HamburgerIcon
+                                        data-test-id='hamburger-icon'
+                                        w='24px'
+                                        h='24px'
+                                        color='black'
+                                    />
+                                )
+                            }
                             onClick={isOpen ? onClose : onOpen}
                         />
                         <Drawer
@@ -83,16 +103,18 @@ export const Header = () => {
                         >
                             <DrawerOverlay
                                 position='fixed'
-                                top='64px'
+                                top='70px'
                                 backgroundColor='rgba(0, 0, 0, 0.16)'
                                 filter='blur(4px)'
                             />
                             <DrawerContent
                                 minWidth='340px'
-                                // maxHeight='calc(100vh - 130px)'
+                                maxHeight='calc(100vh - 130px)'
+                                data-test-id='nav'
                                 borderBottomRadius='8px'
                                 marginRight='8px'
                                 marginTop='64px'
+                                boxShadow='none'
                                 sx={{
                                     '.chakra-modal__body': {
                                         padding: '10px 16px 10px 10px',
@@ -100,10 +122,10 @@ export const Header = () => {
                                 }}
                             >
                                 <DrawerHeader borderBottomWidth='1px'>
-                                    <Breadcrumbs />
+                                    <Breadcrumbs onClose={onClose} />
                                 </DrawerHeader>
                                 <DrawerBody>
-                                    <Menu />
+                                    <Menu onClose={onClose} />
                                 </DrawerBody>
                             </DrawerContent>
                         </Drawer>

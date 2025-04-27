@@ -83,7 +83,7 @@ const SucculentCards = ({
                 w='100%'
             >
                 <Flex justifyContent='space-between' alignItems='flex-start'>
-                    <Flex flexDirection={['column']} gap={['2px', '2px', '2px', '3px', '3px']}>
+                    <Flex flexWrap='wrap' gap={['2px', '2px', '2px', '3px', '3px']}>
                         {subcategory?.map((tag) => {
                             const badgeKey = tag as BadgeKey;
                             const badge = badges[badgeKey];
@@ -171,6 +171,7 @@ const SucculentCards = ({
                         />
                     )}
                     <Button
+                        data-test-id={`card-link-${id}`}
                         p={['8px', '8px', '10px', '12px', '12px']}
                         h={['24px', '24px', '26px', '34px', '34px']}
                         bg='black'
