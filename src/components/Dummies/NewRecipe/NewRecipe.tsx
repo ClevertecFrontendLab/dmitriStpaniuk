@@ -24,8 +24,8 @@ export const NewRecipe: FC = () => {
     const recipes = useAppSelector(filteredRecipesSelector);
 
     const slides = [...recipes]
-        .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
-        .map((item) => (
+        // .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+        .map((item, index) => (
             <NewRecipeCard
                 key={item.id}
                 id={item.id}
@@ -36,6 +36,7 @@ export const NewRecipe: FC = () => {
                 subcategory={item.subcategory}
                 bookmarks={item.bookmarks}
                 likes={item.likes}
+                data-test-id={`carousel-card-${index}`}
             />
         ));
 
@@ -65,25 +66,23 @@ export const NewRecipe: FC = () => {
                 Новые рецепты
             </Text>
             <Flex w='100%' position='relative'>
-                {isMobile && (
-                    <IconButton
-                        aria-label='Previous slide'
-                        icon={
-                            <ArrowBackIcon data-test-id='carousel-back' color='white' boxSize={8} />
-                        }
-                        position='absolute'
-                        left='-10px'
-                        top='46%'
-                        transform='translateY(-90%)'
-                        zIndex={33}
-                        h='48px'
-                        w='48px'
-                        bg='black'
-                        boxShadow='0px 4px 12px rgba(0, 0, 0, 0.1)'
-                        _hover={{ bg: 'gray.800' }}
-                        onClick={handlePrev}
-                    />
-                )}
+                <IconButton
+                    aria-label='Previous slide'
+                    data-test-id='carousel-back'
+                    icon={<ArrowBackIcon color='white' boxSize={8} />}
+                    position='absolute'
+                    left='-10px'
+                    top='46%'
+                    transform='translateY(-90%)'
+                    zIndex={33}
+                    h='48px'
+                    w='48px'
+                    bg='black'
+                    boxShadow='0px 4px 12px rgba(0, 0, 0, 0.1)'
+                    _hover={{ bg: 'gray.800' }}
+                    onClick={handlePrev}
+                    display={isMobile ? 'flex' : 'none'}
+                />
                 <Flex
                     gap={['12px', '12px', '12px', '10px', '22px']}
                     overflowX='auto'
@@ -107,29 +106,23 @@ export const NewRecipe: FC = () => {
                         }}
                     />
                 </Flex>
-                {isMobile && (
-                    <IconButton
-                        aria-label='Next slide'
-                        icon={
-                            <ArrowForwardIcon
-                                data-test-id='carousel-forward'
-                                color='white'
-                                boxSize={8}
-                            />
-                        }
-                        position='absolute'
-                        right='-10px'
-                        top='45%'
-                        transform='translateY(-80%)'
-                        zIndex={33}
-                        h='48px'
-                        w='48px'
-                        bg='black'
-                        boxShadow='0px 4px 12px rgba(0, 0, 0, 0.1)'
-                        _hover={{ bg: 'gray.800' }}
-                        onClick={handleNext}
-                    />
-                )}
+                <IconButton
+                    aria-label='Next slide'
+                    data-test-id='carousel-forward'
+                    icon={<ArrowForwardIcon color='white' boxSize={8} />}
+                    position='absolute'
+                    right='-10px'
+                    top='45%'
+                    transform='translateY(-80%)'
+                    zIndex={33}
+                    h='48px'
+                    w='48px'
+                    bg='black'
+                    boxShadow='0px 4px 12px rgba(0, 0, 0, 0.1)'
+                    _hover={{ bg: 'gray.800' }}
+                    onClick={handleNext}
+                    display={isMobile ? 'flex' : 'none'}
+                />
             </Flex>
         </Flex>
     );

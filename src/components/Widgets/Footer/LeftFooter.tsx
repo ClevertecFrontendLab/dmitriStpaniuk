@@ -11,11 +11,12 @@ export const LeftFooter = () => (
         fontSize='12px'
         p={['10px 10px 0px 10px', '10px 0px 0px 10px', '10px 10px 0px 10px', '0 24px', '0 24px']}
         w='100%'
+        data-test-id='footer'
     >
         <Text color='blackAlpha.400' fontWeight='500' textAlign='left' w='100%'>
             Версия программы 03.25
         </Text>
-        <Text color='blackAlpha.700' fontWeight='400' textAlign='left' w='100%' lineHeight='16px'>
+        <Text color='blackAlpha.700' fontWeight='400' textAlign='left' w='100%' lineHeight='10px'>
             Все права защищены, ученический файл,
             <br /> ©Клевер Технолоджи, 2025
         </Text>
