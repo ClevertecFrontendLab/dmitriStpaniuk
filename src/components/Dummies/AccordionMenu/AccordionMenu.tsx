@@ -9,42 +9,66 @@ import {
     Image,
     Link,
 } from '@chakra-ui/react';
-import { FC, useState } from 'react';
+import { FC } from 'react';
+import { matchPath, useLocation } from 'react-router';
 
 import { menuMockData } from './constants';
+import { defaultIndex } from './useAccordionMenu';
 
 interface AccordionMenuProps {
     onPageChange: (path: string) => void;
+    onClose: () => void;
 }
 
-export const AccordionMenu: FC<AccordionMenuProps> = ({ onPageChange }) => {
-    const [activeItemId, setActiveItemId] = useState<number | null>(null);
+export const AccordionMenu: FC<AccordionMenuProps> = ({ onPageChange, onClose }) => {
     const handleSubItemClick = (parentHref: string, subItemHref: string) => {
         const parentName = parentHref.replace(/^\//, '');
         const subItemName = subItemHref.replace(/^\//, '');
 
+        // первый элемент
+        if (!subItemName) {
+            const parentItem = menuMockData.find((item) => item.href.slice(1) === parentName);
+            if (parentItem && parentItem.submenu.length > 0) {
+                const firstSubItem = parentItem.submenu[0];
+                const path = `/${parentName}/${firstSubItem.href.slice(1)}`;
+                onPageChange(path);
+                return;
+            }
+        }
+
         const path = `/${parentName}/${subItemName}`;
         onPageChange(path);
     };
+    const location = useLocation();
+    const activeParent = matchPath(
+        {
+            path: '/:parent',
+            end: true,
+        },
+        location.pathname,
+    );
+    const activeSubItem = matchPath(
+        {
+            path: '/:parent/:subItem',
+            end: true,
+        },
+        location.pathname,
+    );
 
     return (
         <Flex
             flexDirection='column'
-            p='10px 16px 10px 10px'
+            p={['0', '0', '0', '10px 16px 10px 10px', '10px 16px 10px 10px']}
             fontFamily='heading'
             fontWeight={500}
             fontSize='16px'
             color='#000'
-            // borderRadius='12px'
-            // shadow='0px 1px 0px 0px rgba(0, 0, 0, 0.1)'
-            maxH='620px'
+            maxH={['640px', '640px', '630px', '620px', '620px']}
             overflowY='auto'
-            // top='80px'
             sx={{
+                scrollbarGutter: 'stable',
                 '&::-webkit-scrollbar': {
                     width: '8px',
-                    mr: '10px',
-                    mb: '10px',
                 },
                 '&::-webkit-scrollbar-track': {
                     background: 'blackAlpha.50',
@@ -56,13 +80,20 @@ export const AccordionMenu: FC<AccordionMenuProps> = ({ onPageChange }) => {
                 },
             }}
         >
-            <Accordion defaultIndex={[0]} border='none' allowToggle>
+            <Accordion
+                defaultIndex={[defaultIndex(activeParent, activeSubItem)]}
+                border='none'
+                allowToggle
+            >
                 {menuMockData.map((item) => (
-                    <AccordionItem key={item.id + item.label} border='none'>
+                    <AccordionItem
+                        key={item.id + item.label}
+                        border='none'
+                        data-test-id={`${item.label}`}
+                    >
                         <h2>
                             <AccordionButton
                                 onClick={() => {
-                                    setActiveItemId(0);
                                     handleSubItemClick(item.href, '');
                                 }}
                                 p='10px 8px'
@@ -103,9 +134,8 @@ export const AccordionMenu: FC<AccordionMenuProps> = ({ onPageChange }) => {
                                         overflow='hidden'
                                         whiteSpace='nowrap'
                                         onClick={() => {
-                                            setActiveItemId(subItem.id);
-                                            // onPageChange(subItem.href);
                                             handleSubItemClick(item.href, subItem.href);
+                                            onClose();
                                         }}
                                         bg='transparent'
                                         _hover={{
@@ -122,19 +152,35 @@ export const AccordionMenu: FC<AccordionMenuProps> = ({ onPageChange }) => {
                                             bg='customLime.300'
                                             position='absolute'
                                             left='3'
-                                            display={activeItemId === subItem.id ? 'none' : 'block'}
+                                            display={
+                                                subItem.href.slice(1) ===
+                                                activeSubItem?.params.subItem
+                                                    ? 'none'
+                                                    : 'block'
+                                            }
                                         />
                                         <Box
+                                            data-test-id={`${subItem.label}-active`}
                                             className='decorator-active'
                                             w='8px'
                                             h='28px'
                                             bg='customLime.300'
                                             position='absolute'
                                             left='2'
-                                            display={activeItemId === subItem.id ? 'block' : 'none'}
+                                            display={
+                                                subItem.href.slice(1) ===
+                                                activeSubItem?.params.subItem
+                                                    ? 'block'
+                                                    : 'none'
+                                            }
                                         />
                                         <Link
-                                            fontWeight={activeItemId === subItem.id ? '700' : '500'}
+                                            fontWeight={
+                                                subItem.href.slice(1) ===
+                                                activeSubItem?.params.subItem
+                                                    ? '700'
+                                                    : '500'
+                                            }
                                             fontSize='16px'
                                             pl='35px'
                                             w='100%'

@@ -1,41 +1,47 @@
 import {
-    Badge,
     Button,
     Flex,
     IconButton,
     Image,
     Stack,
+    Tag,
     Text,
     useBreakpointValue,
 } from '@chakra-ui/react';
+import { useNavigate } from 'react-router';
 
 import bookmark from '~/assets/svg/main/new/bookmark.svg';
+import like from '~/assets/svg/main/new/like.svg';
+
+import { badges, sliderMockData } from '../NewRecipe/constants';
+
+// Define a type for the badge keys
+type BadgeKey = keyof typeof badges;
 
 interface SucculentCardsProps {
+    id: string;
     image: string;
     title: string;
     description: string;
-    tags: {
-        id: number;
-        icon: string;
-        name: string;
-    }[];
-    actives: {
-        id: number;
-        icon: string;
-        count: number;
-    }[];
+    category?: string[];
+    subcategory?: string[];
+    bookmarks: number;
+    likes: number;
     width?: string[];
 }
 
 const SucculentCards = ({
+    id,
     image,
     title,
     description,
-    tags,
-    actives,
+    // category,
+    subcategory,
+    bookmarks,
+    likes,
     width,
 }: SucculentCardsProps) => {
+    const navigate = useNavigate();
     const is768 = useBreakpointValue({
         base: true,
         sm: true,
@@ -44,6 +50,15 @@ const SucculentCards = ({
         xl: false,
         '2xl': false,
     });
+
+    const handleCookClick = () => {
+        const recipe = sliderMockData.find((item) => item.id === id);
+        if (recipe) {
+            const mainCategory = recipe.category[0] || 'recipes';
+            const mainSubcategory = recipe.subcategory[0] || 'all';
+            navigate(`/${mainCategory}/${mainSubcategory}/${id}`);
+        }
+    };
 
     return (
         <Flex
@@ -67,37 +82,47 @@ const SucculentCards = ({
                 justifyContent='space-between'
                 w='100%'
             >
-                <Flex justifyContent='space-between' alignItems='center'>
-                    {tags.map((tag) => (
-                        <Badge
-                            key={tag.id + tag.name}
-                            position={is768 ? 'absolute' : 'relative'}
-                            top={is768 ? '8px' : '0'}
-                            left={is768 ? '8px' : '0'}
-                            bg='customLime.50'
-                            borderRadius='4px'
-                            px={['4px', '4px', '4px', '8px', '8px']}
-                            py='2px'
-                            alignItems='center'
-                            display='flex'
-                            gap={['2px', '2px', '2px', '8px', '8px']}
-                            textTransform='none'
-                            fontSize='14px'
-                            fontWeight='400'
-                        >
-                            <Image src={tag.icon} alt='tag' />
-                            {tag.name}
-                        </Badge>
-                    ))}
+                <Flex justifyContent='space-between' alignItems='flex-start'>
+                    <Flex flexWrap='wrap' gap={['2px', '2px', '2px', '3px', '3px']}>
+                        {subcategory?.map((tag) => {
+                            const badgeKey = tag as BadgeKey;
+                            const badge = badges[badgeKey];
+
+                            if (!badge) return null;
+
+                            return (
+                                <Tag
+                                    key={tag}
+                                    position={is768 ? 'absolute' : 'relative'}
+                                    top={is768 ? '8px' : '0'}
+                                    left={is768 ? '8px' : '0'}
+                                    bg='customLime.50'
+                                    gap={['2px', '2px', '2px', '8px', '8px']}
+                                    fontSize='14px'
+                                    fontWeight='400'
+                                    cursor='pointer'
+                                >
+                                    <Image w='16px' h='16px' src={badge.icon} alt='tag' />
+                                    <Text fontSize='14px' fontWeight='400'>
+                                        {badge.name}
+                                    </Text>
+                                </Tag>
+                            );
+                        })}
+                    </Flex>
                     <Flex gap='20px'>
-                        {actives.map((active) => (
-                            <Flex key={active.id + active.icon} alignItems='center' gap='6px'>
-                                <Image src={active.icon} alt='active' />
-                                <Text fontSize='12px' fontWeight='600' color='customLime.600'>
-                                    {active.count}
-                                </Text>
-                            </Flex>
-                        ))}
+                        <Flex key={bookmarks} alignItems='center' gap='6px'>
+                            <Image src={bookmark} alt='bookmark' />
+                            <Text fontSize='12px' fontWeight='600' color='customLime.600'>
+                                {bookmarks}
+                            </Text>
+                        </Flex>
+                        <Flex key={likes} alignItems='center' gap='6px'>
+                            <Image src={like} alt='like' />
+                            <Text fontSize='12px' fontWeight='600' color='customLime.600'>
+                                {likes}
+                            </Text>
+                        </Flex>
                     </Flex>
                 </Flex>
                 <Text
@@ -146,6 +171,7 @@ const SucculentCards = ({
                         />
                     )}
                     <Button
+                        data-test-id={`card-link-${id}`}
                         p={['8px', '8px', '10px', '12px', '12px']}
                         h={['24px', '24px', '26px', '34px', '34px']}
                         bg='black'
@@ -155,6 +181,7 @@ const SucculentCards = ({
                             bg: 'black',
                             color: 'gray.200',
                         }}
+                        onClick={handleCookClick}
                     >
                         <Text
                             fontSize={['12px', '12px', '12px', '14px', '14px']}

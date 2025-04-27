@@ -16,34 +16,42 @@ export const veganTabsMockData = [
     {
         id: 12341234,
         title: 'Закуски',
+        href: 'vegan-cuisine/snacks',
     },
     {
         id: 12341235,
         title: 'Первые блюда',
+        href: 'vegan-cuisine/first-dishes',
     },
     {
         id: 12341236,
         title: 'Вторые блюда',
+        href: 'vegan-cuisine/second-dishes',
     },
     {
         id: 12341237,
         title: 'Гарниры',
+        href: 'vegan-cuisine/garniry',
     },
     {
         id: 12341238,
         title: 'Десерты',
+        href: 'vegan-cuisine/desserts',
     },
     {
         id: 12341239,
         title: 'Выпечка',
+        href: 'vegan-cuisine/pastry',
     },
     {
         id: 12341240,
         title: 'Сыроедческие блюда',
+        href: 'vegan-cuisine/raw-food',
     },
     {
         id: 12341241,
         title: 'Напитки',
+        href: 'vegan-cuisine/drinks',
     },
 ];
 

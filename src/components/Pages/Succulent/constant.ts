@@ -1,4 +1,4 @@
-import knelli from '~/assets/images/succulent/knelli.png';
+import knelli from '~/assets/images/main/kneliSoSpagetti.png';
 import lapsha from '~/assets/images/succulent/lapsha.png';
 import tomYam from '~/assets/images/succulent/tomYam.png';
 import vetchina from '~/assets/images/succulent/vetchina.png';
@@ -7,7 +7,7 @@ import lazania from '~/assets/images/tabs/lazania.png';
 import ruletiki from '~/assets/images/tabs/ruletiki.png';
 import tefteli from '~/assets/images/tabs/tefteli.png';
 import bookmark from '~/assets/svg/main/new/bookmark.svg';
-import eyes from '~/assets/svg/main/new/eyes.svg';
+import like from '~/assets/svg/main/new/like.svg';
 import kastrulia from '~/assets/svg/main/succulent/kastrulia.svg';
 import national from '~/assets/svg/main/succulent/national.svg';
 import sb from '~/assets/svg/main/succulent/sb.svg';
@@ -49,7 +49,7 @@ export const relevantKitchenMockData = [
             },
             {
                 id: 357768223,
-                icon: eyes,
+                icon: like,
                 count: 1,
             },
         ],
@@ -74,7 +74,7 @@ export const relevantKitchenMockData = [
             },
             {
                 id: 213412341234,
-                icon: eyes,
+                icon: like,
                 count: 1,
             },
         ],
@@ -109,7 +109,7 @@ export const succulentCardsMockData = [
             },
             {
                 id: 2,
-                icon: eyes,
+                icon: like,
                 count: 342,
             },
         ],
@@ -136,7 +136,7 @@ export const succulentCardsMockData = [
             },
             {
                 id: 2,
-                icon: eyes,
+                icon: like,
                 count: 342,
             },
         ],
@@ -162,7 +162,7 @@ export const succulentCardsMockData = [
             },
             {
                 id: 2,
-                icon: eyes,
+                icon: like,
                 count: 257,
             },
         ],
@@ -188,7 +188,7 @@ export const succulentCardsMockData = [
             },
             {
                 id: 2,
-                icon: eyes,
+                icon: like,
                 count: 152,
             },
         ],
@@ -214,7 +214,7 @@ export const succulentCardsMockData = [
             },
             {
                 id: 2,
-                icon: eyes,
+                icon: like,
                 count: 152,
             },
         ],
@@ -240,7 +240,7 @@ export const succulentCardsMockData = [
             },
             {
                 id: 2,
-                icon: eyes,
+                icon: like,
                 count: 152,
             },
         ],
@@ -266,7 +266,7 @@ export const succulentCardsMockData = [
             },
             {
                 id: 2,
-                icon: eyes,
+                icon: like,
                 count: 152,
             },
         ],
@@ -293,7 +293,7 @@ export const succulentCardsMockData = [
             },
             {
                 id: 2,
-                icon: eyes,
+                icon: like,
                 count: 152,
             },
         ],

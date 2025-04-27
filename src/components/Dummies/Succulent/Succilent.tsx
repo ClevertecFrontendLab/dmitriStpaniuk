@@ -1,11 +1,16 @@
 import { ArrowForwardIcon } from '@chakra-ui/icons';
 import { Button, Flex, Text, useBreakpointValue } from '@chakra-ui/react';
-import { Link } from 'react-router';
+import { Link, useLocation } from 'react-router';
+
+import { filteredRecipesSelector } from '~/store/app-slice';
+import { useAppSelector } from '~/store/hooks';
 
 import SucculentCards from '../SucculentCards/SucculentCards';
-import { succulentCardsMockData } from './constants';
 
 export const Succulent = () => {
+    const location = useLocation();
+    const isSucculentPage = location.pathname === '/succulent';
+    const recipes = useAppSelector(filteredRecipesSelector);
     const isMobile = useBreakpointValue({
         base: true,
         sm: true,
@@ -14,7 +19,7 @@ export const Succulent = () => {
         xl: false,
         '2xl': false,
     });
-
+    const displayedCards = isSucculentPage ? recipes : recipes.slice(0, 4);
     return (
         <Flex flexDirection='column' alignItems='flex-start' position='relative' mt='30px'>
             <Text
@@ -64,14 +69,18 @@ export const Succulent = () => {
             </Link>
 
             <Flex flexWrap='wrap' gap={['11px', '11px', '16px', '14px', '24px']}>
-                {succulentCardsMockData.map((item) => (
+                {displayedCards.map((item) => (
                     <SucculentCards
+                        data-test-id={`food-card-${item.id}`}
                         key={item.id + item.title}
+                        id={String(item.id)}
                         image={item.image}
                         title={item.title}
                         description={item.description}
-                        tags={item.tags}
-                        actives={item.actives}
+                        category={item.category}
+                        subcategory={item.subcategory}
+                        bookmarks={item.bookmarks}
+                        likes={item.likes}
                         width={[
                             'calc(50% - 12px)',
                             '100%',
