@@ -26,10 +26,10 @@ export const MainLayout = () => {
     });
 
     return (
-        <Flex direction='column' minH='100vh' w='100%'>
+        <Flex direction='column' h='full'>
             <Header />
             <Flex flex='1' position='relative'>
-                {showMenu && <Menu onClose={() => {}} />}
+                {showMenu && <Menu onClose={() => false} />}
                 <Flex
                     as='main'
                     maxW='100vw'
@@ -42,7 +42,7 @@ export const MainLayout = () => {
                         'calc(100vh - 80px)',
                     ]}
                     overflowY='scroll'
-                    overflowX='scroll'
+                    // overflowX='scroll'
                     pl={['0', '16px', '20px', '24px']}
                     pr={['0', '16px', '20px', '10px', '10px']}
                     sx={{

@@ -5,7 +5,7 @@ export const LeftFooter = () => (
     <Flex
         flexDirection='column'
         alignItems='flex-start'
-        gap='15px'
+        gap='5px'
         as='footer'
         fontFamily='heading'
         fontSize='12px'
@@ -16,7 +16,7 @@ export const LeftFooter = () => (
         <Text color='blackAlpha.400' fontWeight='500' textAlign='left' w='100%'>
             Версия программы 03.25
         </Text>
-        <Text color='blackAlpha.700' fontWeight='400' textAlign='left' w='100%' lineHeight='10px'>
+        <Text color='blackAlpha.700' fontWeight='400' textAlign='left' w='100%' lineHeight='16px'>
             Все права защищены, ученический файл,
             <br /> ©Клевер Технолоджи, 2025
         </Text>

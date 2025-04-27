@@ -18,7 +18,7 @@ export const Menu = ({ onClose }: MenuProps) => {
 
     return (
         <Flex
-            h='100%'
+            h='full'
             flexDirection='column'
             justifyContent='space-between'
             w={['314px', '314px', '314px', '256px', '256px']}
